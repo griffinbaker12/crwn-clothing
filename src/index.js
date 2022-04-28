@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, useInRouterContext } from 'react-router-dom';
-import './index.scss';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
+import { UserProvider } from './contexts/user.context';
+import './index.scss';
 import reportWebVitals from './reportWebVitals';
 
 const container = document.getElementById('root');
@@ -10,7 +11,9 @@ const root = ReactDOM.createRoot(container);
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <UserProvider>
+        <App />
+      </UserProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
