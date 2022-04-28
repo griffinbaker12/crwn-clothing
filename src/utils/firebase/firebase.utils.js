@@ -3,12 +3,10 @@ import { initializeApp } from 'firebase/app';
 import {
   getAuth,
   signInWithPopup,
-  signInWithRedirect,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
-
 const firebaseConfig = {
   apiKey: 'AIzaSyAW6X__vLlYLjvrtGV67vrRQKTqffQvY90',
   authDomain: 'crwn-clothing-db-85fd9.firebaseapp.com',
@@ -20,41 +18,43 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig);
 
-const provider = new GoogleAuthProvider();
-provider.setCustomParameters({
+const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({
   prompt: 'select_account',
 });
 
 export const auth = getAuth();
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
-export const signInWithGoogleRedirect = () =>
-  signInWithRedirect(auth, provider);
+export const signInWithGooglePopup = () =>
+  signInWithPopup(auth, googleProvider);
 
 export const db = getFirestore();
 
+// For each authenticated user that signs into our application, we create a "document", which will live inside of the user collection within our Firestore db
 export const createUserDocumentFromAuth = async (
   userAuth,
   additionalInformation = {}
 ) => {
   if (!userAuth) return;
-  const userDocRef = await doc(db, 'users', userAuth.uid);
+
+  const userDocRef = doc(db, 'users', userAuth.uid);
   const userSnapshot = await getDoc(userDocRef);
 
   if (!userSnapshot.exists()) {
     const { displayName, email } = userAuth;
-    const createdAtDate = new Date();
+    const createdAt = new Date();
 
     try {
       await setDoc(userDocRef, {
         displayName,
         email,
-        createdAtDate,
+        createdAt,
         ...additionalInformation,
       });
     } catch (err) {
       console.log('error creating the user', err.message);
     }
   }
+
   return userDocRef;
 };
 

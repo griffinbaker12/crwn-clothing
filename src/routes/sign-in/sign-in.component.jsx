@@ -1,17 +1,14 @@
-import { click } from '@testing-library/user-event/dist/click';
 import {
-  signInWithGooglePopup,
   createUserDocumentFromAuth,
+  signInWithGooglePopup,
 } from '../../utils/firebase/firebase.utils';
-
 import SignUpForm from '../../components/sign-up-form/sign-up-form.component';
-import Directory from '../../components/directory/directory.component';
+import './sign-in.styles.scss';
 
 const SignIn = () => {
   const logGoogleUser = async () => {
     const { user } = await signInWithGooglePopup();
     const userDocRef = await createUserDocumentFromAuth(user);
-    console.log(userDocRef);
   };
 
   return (
