@@ -24,15 +24,15 @@ const CheckoutItem = ({ item }) => {
         <img src={imageUrl} alt={`${name}`} />
       </div>
       <span className="name">{name}</span>
-      <span className="quantity">
-        <div className="arrow" onClick={removeItemHandler}>
+      <div className="quantity">
+        <div className="arrow left-arrow" onClick={removeItemHandler}>
           &#10094;
         </div>
         <span className="value">{quantity}</span>
-        <div className="arrow" onClick={addItemHandler}>
+        <div className="arrow right-arrow" onClick={addItemHandler}>
           &#10095;
         </div>
-      </span>
+      </div>
       <span className="price">${price}</span>
       <div onClick={clearItemHandler} className="remove-button">
         &#10005;
