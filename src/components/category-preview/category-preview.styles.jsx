@@ -4,7 +4,11 @@ import { Link } from 'react-router-dom';
 export const CategoryPreviewContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+
+  @media screen and (max-width: 900px) {
+    align-items: center;
+  }
 `;
 
 export const Title = styled(Link)`
@@ -14,7 +18,12 @@ export const Title = styled(Link)`
 `;
 
 export const Preview = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  column-gap: 20px;
+  display: flex;
+  justify-content: space-between;
+
+  @media screen and (max-width: 900px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
 `;

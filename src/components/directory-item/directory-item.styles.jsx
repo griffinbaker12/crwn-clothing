@@ -10,7 +10,7 @@ export const BackgroundImage = styled.div`
 
 export const Body = styled.div`
   height: 90px;
-  padding: 0 25px;
+  padding: 0px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,22 +19,25 @@ export const Body = styled.div`
   background-color: white;
   opacity: 0.7;
   position: absolute;
+  gap: 6px;
   h2 {
     font-weight: bold;
-    margin: 0 6px 0;
-    font-size: 22px;
+    margin-bottom: 6px;
+    font-size: 20px;
     color: #4a4a4a;
     text-transform: uppercase;
+    margin: 0px;
   }
   p {
     font-weight: lighter;
     font-size: 16px;
+    margin: 0px;
   }
 `;
 
 export const DirectoryItemContainer = styled.div`
   min-width: 30%;
-  height: 300px;
+  height: ${({ size }) => (size === 'normal' ? '240px' : '380px')};
   flex: 1 1 auto;
   display: flex;
   align-items: center;
@@ -57,5 +60,9 @@ export const DirectoryItemContainer = styled.div`
     ${Body} {
       opacity: 0.9;
     }
+  }
+
+  @media screen and (max-width: 800px) {
+    height: 200px;
   }
 `;

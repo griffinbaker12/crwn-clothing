@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ProductCartContainer = styled.div`
-  width: 100%;
+  width: 22vw;
   display: flex;
   flex-direction: column;
   height: 350px;
@@ -9,7 +9,7 @@ export const ProductCartContainer = styled.div`
   position: relative;
   img {
     width: 100%;
-    height: 95%;
+    height: 90%;
     object-fit: cover;
     margin-bottom: 5px;
   }
@@ -29,6 +29,10 @@ export const ProductCartContainer = styled.div`
       display: flex;
     }
   }
+
+  @media screen and (max-width: 900px) {
+    width: 40vw;
+  }
 `;
 
 export const Footer = styled.div`
@@ -42,9 +46,4 @@ export const Footer = styled.div`
 export const Name = styled.span`
   width: 90%;
   margin-bottom: 15px;
-`;
-
-export const Price = styled.span`
-  width: 10%;
-  text-align: end;
 `;
