@@ -9,7 +9,7 @@ import {
 export const CartDropDownContainer = styled.div`
   position: absolute;
   width: 240px;
-  height: 340px;
+  height: 330px;
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -22,6 +22,11 @@ export const CartDropDownContainer = styled.div`
   ${(BaseButton, GoogleSignInButton, InvertedButton)} {
     margin-top: auto;
   }
+
+  ${BaseButton} {
+    margin-top: 4px;
+    margin-left: 0px;
+  }
 `;
 
 export const EmptyMessage = styled.span`
@@ -30,7 +35,7 @@ export const EmptyMessage = styled.span`
 `;
 
 export const CartItems = styled.div`
-  height: 240px;
+  height: 280px;
   display: flex;
   flex-direction: column;
   overflow: auto;
