@@ -61,7 +61,7 @@ const cartReducer = (state, action) => {
     case CART_ACTION_TYPES.TOGGLE_CART:
       return {
         ...state,
-        isCartOpen: !state.isCartOpen,
+        isCartOpen: payload,
       };
     case CART_ACTION_TYPES.ADD_ITEM:
       return {
@@ -103,26 +103,6 @@ const INITIAL_STATE = {
 export const CartProvider = ({ children }) => {
   const [cartState, dispatch] = useReducer(cartReducer, INITIAL_STATE);
   const { cartItems, cartQuantity, cartTotal, isCartOpen } = cartState;
-  console.log(cartItems);
-
-  const setIsCartOpen = () => {
-    dispatch({ type: CART_ACTION_TYPES.TOGGLE_CART, payload: '' });
-  };
-
-  const addItemToCart = productToAdd => {
-    dispatch({ type: CART_ACTION_TYPES.ADD_ITEM, payload: productToAdd });
-  };
-
-  const removeItemFromCart = cartItemToRemove => {
-    dispatch({
-      type: CART_ACTION_TYPES.REMOVE_ITEM,
-      payload: cartItemToRemove,
-    });
-  };
-
-  const clearItemFromCart = cartItemToClear => {
-    dispatch({ type: CART_ACTION_TYPES.CLEAR_ITEM, payload: cartItemToClear });
-  };
 
   useEffect(
     () =>
@@ -138,13 +118,10 @@ export const CartProvider = ({ children }) => {
   }, [cartItems]);
 
   const value = {
+    dispatch,
     isCartOpen,
-    setIsCartOpen,
-    addItemToCart,
     cartItems,
     cartQuantity,
-    removeItemFromCart,
-    clearItemFromCart,
     cartTotal,
   };
 

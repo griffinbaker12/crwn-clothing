@@ -11,11 +11,14 @@ import {
   Price,
 } from './product-card.styles';
 
+import { CART_ACTION_TYPES } from '../../contexts/cart.context';
+
 const ProductCard = ({ product }) => {
   const { name, price, imageUrl } = product;
-  const { addItemToCart } = useContext(CartContext);
+  const { dispatch } = useContext(CartContext);
 
-  const addProductToCart = () => addItemToCart(product);
+  const addProductToCart = () =>
+    dispatch({ type: CART_ACTION_TYPES.ADD_ITEM, payload: product });
 
   return (
     <ProductCartContainer>

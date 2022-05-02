@@ -7,22 +7,25 @@ import {
   ImageContainer,
   BaseSpan,
   Quantity,
-  Arrow,
   Value,
   RemoveButton,
   LeftArrow,
   RightArrow,
 } from './checkout-item.styles';
 
+import { CART_ACTION_TYPES } from '../../contexts/cart.context';
+
 const CheckoutItem = ({ item }) => {
   const { name, imageUrl, price, quantity } = item;
 
-  const { clearItemFromCart, addItemToCart, removeItemFromCart } =
-    useContext(CartContext);
+  const { dispatch } = useContext(CartContext);
 
-  const clearItemHandler = () => clearItemFromCart(item);
-  const addItemHandler = () => addItemToCart(item);
-  const removeItemHandler = () => removeItemFromCart(item);
+  const clearItemHandler = () =>
+    dispatch({ type: CART_ACTION_TYPES.CLEAR_ITEM, payload: item });
+  const addItemHandler = () =>
+    dispatch({ type: CART_ACTION_TYPES.ADD_ITEM, payload: item });
+  const removeItemHandler = () =>
+    dispatch({ type: CART_ACTION_TYPES.REMOVE_ITEM, payload: item });
 
   return (
     <CheckoutItemContainer>
