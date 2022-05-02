@@ -11,7 +11,6 @@ export const USER_ACTION_TYPES = {
 
 const categoriesReducer = (state, action) => {
   const { type, payload } = action;
-  console.log(payload);
   switch (type) {
     case USER_ACTION_TYPES.SET_CATEGORIES_MAP:
       return {

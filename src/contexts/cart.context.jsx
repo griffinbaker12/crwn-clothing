@@ -18,7 +18,6 @@ export const CartContext = createContext({
 // Reducer Helper Functions that we can utilize
 
 const addCartItem = (cartItems, productToAdd) => {
-  console.log(cartItems, productToAdd);
   const contains = cartItems.find(item => item.id === productToAdd.id);
   if (contains) {
     return cartItems.map(cartItem =>
@@ -31,7 +30,6 @@ const addCartItem = (cartItems, productToAdd) => {
 };
 
 const removeCartItem = (cartItems, cartItemToRemove) => {
-  console.log(cartItems);
   if (cartItemToRemove.quantity === 1) {
     return cartItems.filter(cartItem => cartItem.id !== cartItemToRemove.id);
   }
