@@ -67,13 +67,7 @@ export const getCategoriesAndDocuments = async () => {
   // And then here we are gettting the documents contained within the categoies collection
   const querySnapshot = await getDocs(q);
 
-  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-    const { title, items } = docSnapshot.data();
-    acc[title.toLowerCase()] = items;
-    return acc;
-  }, {});
-
-  return categoryMap;
+  return querySnapshot.docs.map(docSnapshot => docSnapshot.data());
 };
 
 // For each authenticated user that signs into our application, we create a "document", which will live inside of the user collection within our Firestore db
