@@ -1,28 +1,34 @@
 import { compose, applyMiddleware, createStore } from 'redux';
-// import logger from 'redux-logger';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import logger from 'redux-logger';
 
 import { rootReducer } from './root-reducer';
 
-const loggerMiddleware = store => next => action => {
-  if (!action.type) {
-    return next(action);
-  }
-
-  console.log('type: ', action.type);
-  console.log('payload: ', action.payload);
-  console.log('current state: ', store.getState());
-
-  next(action);
-
-  console.log(next);
-
-  console.log('next state: ', store.getState());
+const persistConfig = {
+  key: 'root',
+  storage,
+  blacklist: ['user'],
 };
 
-// root-reducer (combo of all of our reducers); like one big reducer and need this for our application to have any type of state value
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const middleWares = [loggerMiddleware];
+const middleWares = [process.env.NODE_ENV === 'development' && logger].filter(
+  Boolean
+);
 
-const composedEnhancers = compose(applyMiddleware(...middleWares));
+const composeEnhancer =
+  (process.env.NODE_ENV === 'development' &&
+    window &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+  compose;
 
-export const store = createStore(rootReducer, undefined, composedEnhancers);
+const composedEnhancers = composeEnhancer(applyMiddleware(...middleWares));
+
+export const store = createStore(
+  persistedReducer,
+  undefined,
+  composedEnhancers
+);
+
+export const persistor = persistStore(store);
