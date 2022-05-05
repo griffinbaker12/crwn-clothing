@@ -1,6 +1,4 @@
 export const CART_ACTION_TYPES = {
   TOGGLE_CART: 'cart/TOGGLE_CART',
-  ADD_ITEM: 'cart/ADD_ITEM',
-  REMOVE_ITEM: 'cart/REMOVE_ITEM',
-  CLEAR_ITEM: 'cart/CLEAR_ITEM',
+  SET_CART_ITEMS: 'cart/SET_CART_ITEMS',
 };
