@@ -17,7 +17,7 @@ import {
   signOutUser,
 } from '../../utils/firebase/firebase.utils';
 
-export function* getSnapshotFromUserAuth(userAuth, additionalDetails) {
+function* getSnapshotFromUserAuth(userAuth, additionalDetails) {
   try {
     const userSnapshot = yield call(
       createUserDocumentFromAuth,
@@ -30,7 +30,7 @@ export function* getSnapshotFromUserAuth(userAuth, additionalDetails) {
   }
 }
 
-export function* signInWithGoogle() {
+function* signInWithGoogle() {
   try {
     const { user } = yield call(signInWithGooglePopup);
     yield call(getSnapshotFromUserAuth, user);
@@ -39,7 +39,7 @@ export function* signInWithGoogle() {
   }
 }
 
-export function* signInWithEmail({ payload: { email, password } }) {
+function* signInWithEmail({ payload: { email, password } }) {
   try {
     const { user } = yield call(
       signInAuthUserWithEmailAndPassword,
@@ -52,7 +52,7 @@ export function* signInWithEmail({ payload: { email, password } }) {
   }
 }
 
-export function* isUserAuthenticated() {
+function* isUserAuthenticated() {
   try {
     const userAuth = yield call(getCurrentUser);
     if (!userAuth) return;
@@ -62,7 +62,7 @@ export function* isUserAuthenticated() {
   }
 }
 
-export function* signUp({ payload: { email, password, displayName } }) {
+function* signUp({ payload: { email, password, displayName } }) {
   try {
     const { user } = yield call(
       createAuthUserWithEmailAndPassword,
@@ -75,7 +75,11 @@ export function* signUp({ payload: { email, password, displayName } }) {
   }
 }
 
-export function* signOut() {
+function* signInAfterSignUp({ payload: { user, additionalDetails } }) {
+  yield call(getSnapshotFromUserAuth, user, additionalDetails);
+}
+
+function* signOut() {
   try {
     yield call(signOutUser);
     yield put(signOutSuccess());
@@ -84,16 +88,12 @@ export function* signOut() {
   }
 }
 
-export function* signInAfterSignUp({ payload: { user, additionalDetails } }) {
-  yield call(getSnapshotFromUserAuth, user, additionalDetails);
+export function* onCheckUserSession() {
+  yield takeLatest(USER_ACTION_TYPES.CHECK_USER_SESSION, isUserAuthenticated);
 }
 
 export function* onGoogleSignInStart() {
   yield takeLatest(USER_ACTION_TYPES.GOOGLE_SIGN_IN_START, signInWithGoogle);
-}
-
-export function* onCheckUserSession() {
-  yield takeLatest(USER_ACTION_TYPES.CHECK_USER_SESSION, isUserAuthenticated);
 }
 
 export function* onEmailSignInStart() {

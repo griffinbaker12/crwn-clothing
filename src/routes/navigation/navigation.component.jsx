@@ -1,9 +1,9 @@
 import { Fragment } from 'react';
 import { Outlet } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { signOutStart } from '../../store/user/user.action';
 import CartIcon from '../../components/cart-icon/cart-icon.component';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
-import { signOutUser } from '../../utils/firebase/firebase.utils';
 import {
   NavigationContainer,
   LogoContainer,
@@ -17,6 +17,9 @@ import { selectIsCartOpen } from '../../store/cart/cart.selector';
 const Navigation = () => {
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectIsCartOpen);
+  const dispatch = useDispatch();
+
+  const handleClick = () => dispatch(signOutStart());
 
   return (
     <Fragment>
@@ -27,7 +30,7 @@ const Navigation = () => {
         <NavLinks>
           <NavLink to="/shop">SHOP</NavLink>
           {currentUser ? (
-            <NavLink as="span" onClick={signOutUser}>
+            <NavLink as="span" onClick={handleClick}>
               SIGN OUT
             </NavLink>
           ) : (
