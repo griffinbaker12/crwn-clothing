@@ -32,12 +32,12 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 
 const googleProvider = new GoogleAuthProvider();
+
 googleProvider.setCustomParameters({
   prompt: 'select_account',
 });
 
 export const auth = getAuth();
-
 export const signInWithGooglePopup = () =>
   signInWithPopup(auth, googleProvider);
 
@@ -45,7 +45,8 @@ export const db = getFirestore();
 
 export const addCollectionAndDocuments = async (
   collectionKey,
-  objectsToAdd
+  objectsToAdd,
+  field
 ) => {
   const collectionRef = collection(db, collectionKey);
   const batch = writeBatch(db);
@@ -56,21 +57,17 @@ export const addCollectionAndDocuments = async (
   });
 
   await batch.commit();
+  console.log('done');
 };
 
 export const getCategoriesAndDocuments = async () => {
   const collectionRef = collection(db, 'categories');
-
-  // The way that I think of this is that we are building a query to target this collection
   const q = query(collectionRef);
 
-  // And then here we are gettting the documents contained within the categoies collection
   const querySnapshot = await getDocs(q);
-
-  return querySnapshot.docs.map(doc => doc.data());
+  return querySnapshot.docs.map(docSnapshot => docSnapshot.data());
 };
 
-// For each authenticated user that signs into our application, we create a "document", which will live inside of the user collection within our Firestore db
 export const createUserDocumentFromAuth = async (
   userAuth,
   additionalInformation = {}
@@ -78,6 +75,7 @@ export const createUserDocumentFromAuth = async (
   if (!userAuth) return;
 
   const userDocRef = doc(db, 'users', userAuth.uid);
+
   const userSnapshot = await getDoc(userDocRef);
 
   if (!userSnapshot.exists()) {
@@ -91,12 +89,12 @@ export const createUserDocumentFromAuth = async (
         createdAt,
         ...additionalInformation,
       });
-    } catch (err) {
-      console.log('error creating the user', err.message);
+    } catch (error) {
+      console.log('error creating the user', error.message);
     }
   }
 
-  return userDocRef;
+  return userSnapshot;
 };
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
@@ -115,3 +113,16 @@ export const signOutUser = async () => await signOut(auth);
 
 export const onAuthStateChangedListener = callback =>
   onAuthStateChanged(auth, callback);
+
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      userAuth => {
+        unsubscribe();
+        resolve(userAuth);
+      },
+      reject
+    );
+  });
+};
