@@ -1,15 +1,18 @@
 import styled from 'styled-components';
+import Button from '../../components/button/button.component';
 
 export const CheckoutContainer = styled.div`
-  width: 65%;
+  width: 70%;
+  /* opacity: 60%; */
   min-height: 90vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 50px auto 0;
+  margin: 20px auto 0;
+  /* position: relative; */
 
   @media screen and (max-width: 850px) {
-    width: 80%;
+    width: 85%;
   }
 `;
 
@@ -23,16 +26,39 @@ export const CheckoutHeader = styled.div`
 
 export const HeaderBlock = styled.div`
   text-transform: capitalize;
-  width: 23%;
+  width: 22.5%;
   text-align: center;
 
   &:last-child {
-    width: 8%;
+    width: 10%;
   }
 `;
 
 export const Total = styled.span`
-  margin-top: 30px;
-  margin-left: auto;
   font-size: 36px;
+`;
+
+export const CheckoutButton = styled(Button)`
+  background-color: rgb(244, 85, 0);
+  border-radius: 5px;
+
+  &:hover {
+    background-color: #f76e40;
+    color: black;
+    border: 1px solid black;
+  }
+`;
+
+export const CheckoutPayment = styled.div`
+  /* margin-left: auto; */
+  width: 250px;
+  margin-top: 24px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #eee;
+  align-items: center;
+  padding: 10px;
 `;

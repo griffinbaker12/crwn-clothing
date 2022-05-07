@@ -13,7 +13,7 @@ export const CheckoutItemContainer = styled.div`
 `;
 
 export const ImageContainer = styled.div`
-  width: 23%;
+  width: 22.5%;
   img {
     width: 100%;
     height: 100%;
@@ -24,6 +24,9 @@ export const ImageContainer = styled.div`
 
 export const BaseSpan = styled.span`
   width: 23%;
+  @media screen and (max-width: 650px) {
+    font-size: 16px;
+  }
 `;
 
 export const Quantity = styled(BaseSpan)`
@@ -47,6 +50,6 @@ export const Value = styled.span`
 `;
 
 export const RemoveButton = styled.div`
-  width: 8%;
+  width: 10%;
   cursor: pointer;
 `;

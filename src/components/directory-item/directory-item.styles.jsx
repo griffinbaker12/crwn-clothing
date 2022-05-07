@@ -61,4 +61,12 @@ export const DirectoryItemContainer = styled.div`
       opacity: 0.9;
     }
   }
+  @media screen and (max-width: 544px) {
+    &:nth-child(4) {
+      height: 240px;
+    }
+    &:last-child {
+      height: 300px;
+    }
+  }
 `;

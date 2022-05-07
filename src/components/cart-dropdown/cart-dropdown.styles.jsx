@@ -26,6 +26,16 @@ export const CartDropDownContainer = styled.div`
   ${BaseButton} {
     margin-top: 4px;
     margin-left: 0px;
+
+    @media screen and (max-width: 850px) {
+      min-width: 0;
+      padding: 0 10px 0 10px;
+    }
+  }
+
+  @media screen and (max-width: 850px) {
+    width: 192px;
+    height: 264px;
   }
 `;
 

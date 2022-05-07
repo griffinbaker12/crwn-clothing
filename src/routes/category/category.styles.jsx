@@ -15,6 +15,7 @@ export const ProductCardContainer = styled.div`
 export const Title = styled.h2`
   font-size: 38px;
   margin-bottom: 25px;
+  margin-top: 16px;
   text-align: center;
 `;
 

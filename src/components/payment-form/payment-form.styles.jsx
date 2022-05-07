@@ -2,12 +2,14 @@ import styled from 'styled-components';
 import Button from '../button/button.component';
 
 export const PaymentFormContainer = styled.div`
-  height: 200px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   border: 1px solid black;
+  position: absolute;
+  top: 310px;
 `;
 
 export const FormContainer = styled.form`

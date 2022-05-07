@@ -17,7 +17,6 @@ import {
 } from './category.styles';
 
 const Category = () => {
-  console.log('category');
   const { category } = useParams();
   const categoriesMap = useSelector(selectCategoriesMap);
   const isLoading = useSelector(selectIsCategoriesLoading);
