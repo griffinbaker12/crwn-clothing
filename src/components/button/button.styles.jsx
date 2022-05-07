@@ -5,7 +5,7 @@ import { SpinnerContainer } from '../spinner/spinner.styles';
 import {
   WrapperFailure,
   WrapperSuccess,
-} from '../payment-success/payment-success-styles';
+} from '../payment-icon/payment-icon-styles';
 
 export const BaseButton = styled.button`
   min-width: 165px;

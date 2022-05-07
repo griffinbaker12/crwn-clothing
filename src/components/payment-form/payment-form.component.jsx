@@ -1,9 +1,13 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { selectCartTotal } from '../../store/cart/cart.selector';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  selectCartTotal,
+  selectIsCartOpen,
+} from '../../store/cart/cart.selector';
 import { selectCurrentUser } from '../../store/user/user.selector';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import { BUTTON_TYPE_CLASSES } from '../button/button.component';
+import { clearCart, toggleCart } from '../../store/cart/cart.action';
 import {
   PaymentFormContainer,
   FormContainer,
@@ -19,19 +23,28 @@ const PaymentForm = ({ toggleForm, checkoutToggle }) => {
   const elements = useElements();
   const amount = useSelector(selectCartTotal);
   const currentUser = useSelector(selectCurrentUser);
+  const dispatch = useDispatch();
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const [showStatus, setShowStatus] = useState(false);
   const [isSuccessful, setIsSuccessful] = useState(false);
-  const [failedAttempt, setFailedAttempt] = useState(false);
 
   const resetFormAfterSuccess = () => {
     setShowStatus(false);
     elements.getElement('card').clear();
   };
 
+  // const promisifyErrorHandle = async () => {
+  //   const promise = new Promise(res => {
+  //     setIsProcessingPayment(false);
+  //     setIsSuccessful(false);
+  //     res('finished');
+  //   });
+  //   const response = await promise;
+  //   console.log(response);
+  // };
+
   const handlePayment = async e => {
     e.preventDefault();
-    console.log(elements.getElement('card'));
 
     if (!stripe || !elements) return;
 
@@ -43,7 +56,14 @@ const PaymentForm = ({ toggleForm, checkoutToggle }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ amount: amount * 100 }),
-    }).then(res => res.json());
+    }).then(res => res.json().catch(e => 'error'));
+
+    // if (response === 'error') {
+   
+    //   return;
+    }
+
+    console.log('hello');
 
     const {
       paymentIntent: { client_secret },
@@ -62,14 +82,13 @@ const PaymentForm = ({ toggleForm, checkoutToggle }) => {
     setShowStatus(true);
 
     if (paymentResult.error) {
-      setIsSuccessful(false);
-      setTimeout(() => setShowStatus(false), 500);
-      setFailedAttempt(true);
+      promisifyErrorHandle();
     } else {
       if (paymentResult.paymentIntent.status === 'succeeded') {
         setIsSuccessful(true);
         setTimeout(() => {
           toggleForm(false);
+          dispatch(clearCart());
           setTimeout(() => {
             resetFormAfterSuccess();
           }, 1000);
@@ -82,7 +101,6 @@ const PaymentForm = ({ toggleForm, checkoutToggle }) => {
     <PaymentFormContainer
       checkoutToggle={checkoutToggle}
       onSubmit={handlePayment}
-      failedAttempt={failedAttempt}
     >
       <CloseForm type="button" onClick={toggleForm}>
         &times;

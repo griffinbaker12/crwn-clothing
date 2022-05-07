@@ -5,7 +5,8 @@ import {
   ButtonSpinner,
 } from './button.styles.jsx';
 
-import PaymentSuccess from '../payment-success/payment-success-component';
+import PaymentIcon from '../payment-icon/payment-icon-component.jsx';
+import { Fragment } from 'react';
 
 export const BUTTON_TYPE_CLASSES = {
   base: 'base',
@@ -34,14 +35,12 @@ const Button = ({
       {isLoading ? (
         <ButtonSpinner />
       ) : showStatus ? (
-        <PaymentSuccess showStatus={showStatus} isSuccessful={isSuccessful} />
+        <PaymentIcon showStatus={showStatus} isSuccessful={isSuccessful} />
       ) : (
         children
       )}
     </CustomButton>
   );
 };
-
-// Could always pass in the is complete as a prop and then determine whether to render the success or the error icon
 
 export default Button;

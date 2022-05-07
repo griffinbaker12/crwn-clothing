@@ -53,6 +53,13 @@ export const removeItem = (cartItems, item) => {
   };
 };
 
+export const clearCart = () => {
+  return {
+    type: CART_ACTION_TYPES.SET_CART_ITEMS,
+    payload: [],
+  };
+};
+
 export const toggleCart = cartStatus => ({
   type: CART_ACTION_TYPES.TOGGLE_CART,
   payload: cartStatus,

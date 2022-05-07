@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const WrapperSuccess = styled.div`
   display: flex;
@@ -41,5 +41,5 @@ export const XWrapper = styled.span`
   font-size: 25px;
   position: absolute;
   top: -13px;
-  left: 6.5px;
+  left: 7px;
 `;

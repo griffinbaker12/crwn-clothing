@@ -9,19 +9,22 @@ import {
 } from './checkout.styles.jsx';
 import CheckoutItem from '../../components/checkout-item/checkout-item.component';
 import { Fragment, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   selectCartItems,
   selectCartTotal,
 } from '../../store/cart/cart.selector.js';
 import PaymentForm from '../../components/payment-form/payment-form.component';
+import { toggleCart } from '../../store/cart/cart.action.js';
 
 const Checkout = () => {
   const cartItems = useSelector(selectCartItems);
   const cartTotal = useSelector(selectCartTotal);
+  const dispatch = useDispatch();
   const [checkoutToggle, setCheckoutToggle] = useState(false);
 
-  const handleClick = () => setCheckoutToggle(prevState => !prevState);
+  const handleClick = () =>
+    setCheckoutToggle(prevState => !prevState, dispatch(toggleCart(false)));
 
   return (
     <CheckoutContainer>

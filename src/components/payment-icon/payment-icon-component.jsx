@@ -4,9 +4,9 @@ import {
   WrapperFailure,
   XWrapper,
   CheckmarkWrapper,
-} from './payment-success-styles';
+} from './payment-icon-styles';
 
-const PaymentSuccess = ({ isSuccessful }) => {
+const PaymentIcon = ({ isSuccessful }) => {
   return (
     <Fragment>
       {isSuccessful ? (
@@ -22,4 +22,4 @@ const PaymentSuccess = ({ isSuccessful }) => {
   );
 };
 
-export default PaymentSuccess;
+export default PaymentIcon;

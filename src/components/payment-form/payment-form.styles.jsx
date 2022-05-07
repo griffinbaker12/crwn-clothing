@@ -33,17 +33,6 @@ export const PaymentFormContainer = styled.div`
       opacity: 0;
     `}
 
-    ${({ checkoutToggle }) =>
-    !checkoutToggle &&
-    css`
-      animation-duration: 400ms;
-      animation-timing-function: ease-in-out;
-      animation-name: panelShakeAnimation;
-      -webkit-animation-duration: 400ms;
-      -webkit-animation-timing-function: ease-in-out;
-      -webkit-animation-name: panelShakeAnimation;
-    `}
-
   h2 {
     position: absolute;
     top: 8%;
