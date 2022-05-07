@@ -2,6 +2,11 @@ import styled from 'styled-components';
 
 import { SpinnerContainer } from '../spinner/spinner.styles';
 
+import {
+  WrapperFailure,
+  WrapperSuccess,
+} from '../payment-success/payment-success-styles';
+
 export const BaseButton = styled.button`
   min-width: 165px;
   width: auto;
@@ -25,6 +30,13 @@ export const BaseButton = styled.button`
     background-color: white;
     color: black;
     border: 1px solid black;
+    ${WrapperFailure} {
+      border: 2px solid black;
+    }
+
+    ${WrapperSuccess} {
+      border: 2px solid black;
+    }
   }
 `;
 

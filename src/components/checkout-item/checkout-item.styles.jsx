@@ -18,15 +18,13 @@ export const ImageContainer = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
-    padding-right: 10px;
+    padding-right: 12px;
   }
 `;
 
 export const BaseSpan = styled.span`
-  width: 23%;
-  @media screen and (max-width: 650px) {
-    font-size: 16px;
-  }
+  width: 22.5%;
+  font-size: 18px;
 `;
 
 export const Quantity = styled(BaseSpan)`

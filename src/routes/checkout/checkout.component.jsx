@@ -5,9 +5,10 @@ import {
   Total,
   CheckoutPayment,
   CheckoutButton,
+  Overlay,
 } from './checkout.styles.jsx';
 import CheckoutItem from '../../components/checkout-item/checkout-item.component';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
   selectCartItems,
@@ -20,7 +21,7 @@ const Checkout = () => {
   const cartTotal = useSelector(selectCartTotal);
   const [checkoutToggle, setCheckoutToggle] = useState(false);
 
-  const handleClick = () => setCheckoutToggle(!checkoutToggle);
+  const handleClick = () => setCheckoutToggle(prevState => !prevState);
 
   return (
     <CheckoutContainer>
@@ -48,7 +49,10 @@ const Checkout = () => {
         <Total>Total: ${cartTotal}</Total>
         <CheckoutButton onClick={handleClick}>Checkout</CheckoutButton>
       </CheckoutPayment>
-      {checkoutToggle && <PaymentForm />}
+      <Fragment>
+        <PaymentForm checkoutToggle={checkoutToggle} toggleForm={handleClick} />
+        <Overlay checkoutToggle={checkoutToggle} />
+      </Fragment>
     </CheckoutContainer>
   );
 };

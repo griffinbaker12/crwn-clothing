@@ -2,21 +2,31 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectCartTotal } from '../../store/cart/cart.selector';
 import { selectCurrentUser } from '../../store/user/user.selector';
-import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import { BUTTON_TYPE_CLASSES } from '../button/button.component';
 import {
   PaymentFormContainer,
   FormContainer,
   PaymentButton,
+  CloseForm,
+  PaymentCard,
+  Note,
 } from '../../components/payment-form/payment-form.styles.jsx';
 import userEvent from '@testing-library/user-event';
 
-const PaymentForm = () => {
+const PaymentForm = ({ toggleForm, checkoutToggle }) => {
   const stripe = useStripe();
   const elements = useElements();
   const amount = useSelector(selectCartTotal);
   const currentUser = useSelector(selectCurrentUser);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  const [showStatus, setShowStatus] = useState(false);
+  const [isSuccessful, setIsSuccessful] = useState(false);
+
+  const resetFormAfterSuccess = () => {
+    setShowStatus(false);
+    elements.getElement('card').clear();
+  };
 
   const handlePayment = async e => {
     e.preventDefault();
@@ -46,28 +56,48 @@ const PaymentForm = () => {
     });
 
     setIsProcessingPayment(false);
+    setShowStatus(true);
 
     if (paymentResult.error) {
-      alert('Error processing payment');
+      setIsSuccessful(false);
     } else {
       if (paymentResult.paymentIntent.status === 'succeeded') {
-        alert('Payment success');
+        setIsSuccessful(true);
+        setTimeout(() => {
+          toggleForm(false);
+          setTimeout(() => {
+            resetFormAfterSuccess();
+          }, 1000);
+        }, 1000);
       }
     }
   };
 
   return (
-    <PaymentFormContainer onSubmit={handlePayment}>
+    <PaymentFormContainer
+      checkoutToggle={checkoutToggle}
+      onSubmit={handlePayment}
+    >
+      <CloseForm type="button" onClick={toggleForm}>
+        &times;
+      </CloseForm>
+      <h2>Credit Card Payment</h2>
       <FormContainer>
-        <h2>Credit Card Payment: </h2>
-        <CardElement />
+        <PaymentCard />
         <PaymentButton
           isLoading={isProcessingPayment}
+          showStatus={showStatus}
+          isSuccessful={isSuccessful}
           buttonType={BUTTON_TYPE_CLASSES.inverted}
         >
           Pay now
         </PaymentButton>
       </FormContainer>
+      <Note>
+        *Please use the following test card for payments*
+        <br />
+        4242 4242 4242 4242 --- Exp: 04/24 -- CVC: 424 -- Zip: 00000
+      </Note>
     </PaymentFormContainer>
   );
 };

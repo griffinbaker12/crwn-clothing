@@ -1,18 +1,17 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Button from '../../components/button/button.component';
 
 export const CheckoutContainer = styled.div`
-  width: 70%;
-  /* opacity: 60%; */
+  width: 55%;
   min-height: 90vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 20px auto 0;
+  margin: 20px auto 40px auto;
   /* position: relative; */
 
   @media screen and (max-width: 850px) {
-    width: 85%;
+    width: 90%;
   }
 `;
 
@@ -28,6 +27,10 @@ export const HeaderBlock = styled.div`
   text-transform: capitalize;
   width: 22.5%;
   text-align: center;
+
+  &:first-child {
+    padding-right: 12px;
+  }
 
   &:last-child {
     width: 10%;
@@ -61,4 +64,22 @@ export const CheckoutPayment = styled.div`
   background-color: #eee;
   align-items: center;
   padding: 10px;
+`;
+
+export const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 1;
+  transition: all 0.5s;
+  ${({ checkoutToggle }) =>
+    !checkoutToggle &&
+    css`
+      visibility: hidden;
+      opacity: 0;
+    `}
 `;
