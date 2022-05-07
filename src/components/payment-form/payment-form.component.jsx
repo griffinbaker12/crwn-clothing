@@ -22,6 +22,7 @@ const PaymentForm = ({ toggleForm, checkoutToggle }) => {
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const [showStatus, setShowStatus] = useState(false);
   const [isSuccessful, setIsSuccessful] = useState(false);
+  const [failedAttempt, setFailedAttempt] = useState(false);
 
   const resetFormAfterSuccess = () => {
     setShowStatus(false);
@@ -30,6 +31,8 @@ const PaymentForm = ({ toggleForm, checkoutToggle }) => {
 
   const handlePayment = async e => {
     e.preventDefault();
+    console.log(elements.getElement('card'));
+
     if (!stripe || !elements) return;
 
     setIsProcessingPayment(true);
@@ -60,6 +63,8 @@ const PaymentForm = ({ toggleForm, checkoutToggle }) => {
 
     if (paymentResult.error) {
       setIsSuccessful(false);
+      setTimeout(() => setShowStatus(false), 500);
+      setFailedAttempt(true);
     } else {
       if (paymentResult.paymentIntent.status === 'succeeded') {
         setIsSuccessful(true);
@@ -77,6 +82,7 @@ const PaymentForm = ({ toggleForm, checkoutToggle }) => {
     <PaymentFormContainer
       checkoutToggle={checkoutToggle}
       onSubmit={handlePayment}
+      failedAttempt={failedAttempt}
     >
       <CloseForm type="button" onClick={toggleForm}>
         &times;
