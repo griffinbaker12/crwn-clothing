@@ -33,16 +33,6 @@ const PaymentForm = ({ toggleForm, checkoutToggle }) => {
     elements.getElement('card').clear();
   };
 
-  // const promisifyErrorHandle = async () => {
-  //   const promise = new Promise(res => {
-  //     setIsProcessingPayment(false);
-  //     setIsSuccessful(false);
-  //     res('finished');
-  //   });
-  //   const response = await promise;
-  //   console.log(response);
-  // };
-
   const handlePayment = async e => {
     e.preventDefault();
 
@@ -56,14 +46,36 @@ const PaymentForm = ({ toggleForm, checkoutToggle }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ amount: amount * 100 }),
-    }).then(res => res.json().catch(e => 'error'));
+    }).then(res =>
+      res.json().catch(e => {
+        console.log('Here is the error from the front end:', { e });
+        if (e.message === 'Unexpected token Y in JSON at position 0') {
+          return 'invalid cart';
+        }
+        return 'error';
+      })
+    );
 
-    // if (response === 'error') {
-   
-    //   return;
+    if (response === 'error') {
+      setIsProcessingPayment(false);
+      setShowStatus(true);
+      alert('Error processing payment, please try again!');
+      setIsSuccessful(false);
+      setTimeout(() => resetFormAfterSuccess(), 500);
+      return;
     }
-
-    console.log('hello');
+    if (response === 'invalid cart') {
+      setIsProcessingPayment(false);
+      setShowStatus(true);
+      alert('Please add items to cart prior to checking out.');
+      setIsSuccessful(false);
+      setTimeout(() => {
+        toggleForm(false);
+        setTimeout(() => {
+          resetFormAfterSuccess();
+        }, 1000);
+      }, 1000);
+    }
 
     const {
       paymentIntent: { client_secret },
@@ -82,9 +94,12 @@ const PaymentForm = ({ toggleForm, checkoutToggle }) => {
     setShowStatus(true);
 
     if (paymentResult.error) {
-      promisifyErrorHandle();
+      alert('Error processing payment, please try again');
+      setIsSuccessful(false);
+      setTimeout(() => setShowStatus(false), 500);
     } else {
       if (paymentResult.paymentIntent.status === 'succeeded') {
+        alert('Payment success, thank you for shopping with us!');
         setIsSuccessful(true);
         setTimeout(() => {
           toggleForm(false);
