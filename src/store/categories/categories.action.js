@@ -1,15 +1,15 @@
-import { CATEGORIES_ACTION_TYPES } from './categories.types';
+import { CATEGORIES_ACTION_TYPES } from './categories.types.ts';
+import { createAction } from '../../utils/reducer/reducer.utils';
+import { create } from 'domain';
 
-export const fetchCategoriesStart = () => ({
-  type: CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START,
-});
+export const fetchCategoriesStart = () =>
+  createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START);
 
-export const fetchCategoriesSuccess = categoriesArray => ({
-  type: CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS,
-  payload: categoriesArray,
-});
+export const fetchCategoriesSuccess = categoriesArray =>
+  createAction(
+    CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS,
+    categoriesArray
+  );
 
-export const fetchCategoriesFailure = error => ({
-  type: CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILURE,
-  payload: error,
-});
+export const fetchCategoriesFailure = error =>
+  createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILURE, error);

@@ -1,4 +1,4 @@
-import { CHECKOUT_ACTION_TYPES } from './payment.types';
+import { PAYMENT_ACTION_TYPES } from './payment.types';
 
 const INITIAL_STATE = {
   isProcessing: false,
@@ -7,25 +7,25 @@ const INITIAL_STATE = {
   isCheckingOut: false,
 };
 
-export const checkoutReducer = (state = INITIAL_STATE, action) => {
+export const paymentReducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
   switch (type) {
-    case CHECKOUT_ACTION_TYPES.SET_PROCESSING:
+    case PAYMENT_ACTION_TYPES.SET_PROCESSING:
       return {
         ...state,
         isProcessing: payload,
       };
-    case CHECKOUT_ACTION_TYPES.SET_SHOW_STATUS:
+    case PAYMENT_ACTION_TYPES.SET_SHOW_STATUS:
       return {
         ...state,
         isShowingStatus: payload,
       };
-    case CHECKOUT_ACTION_TYPES.SET_SUCCESS:
+    case PAYMENT_ACTION_TYPES.SET_SUCCESS:
       return {
         ...state,
         isSuccessful: payload,
       };
-    case CHECKOUT_ACTION_TYPES.SET_CHECKOUT_TOGGLE:
+    case PAYMENT_ACTION_TYPES.SET_CHECKOUT_TOGGLE:
       return {
         ...state,
         isCheckingOut: payload,

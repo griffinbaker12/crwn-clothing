@@ -1,7 +1,7 @@
-export const selectIsProccessing = state => state.checkout.isProcessing;
+export const selectIsProccessing = state => state.payment.isProcessing;
 
-export const selectIsShowingStatus = state => state.checkout.isShowingStatus;
+export const selectIsShowingStatus = state => state.payment.isShowingStatus;
 
-export const selectIsSuccessful = state => state.checkout.isSuccessful;
+export const selectIsSuccessful = state => state.payment.isSuccessful;
 
-export const selectCheckoutToggle = state => state.checkout.isCheckingOut;
+export const selectCheckoutToggle = state => state.payment.isCheckingOut;
