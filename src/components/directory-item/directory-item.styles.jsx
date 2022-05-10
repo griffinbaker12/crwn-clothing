@@ -61,7 +61,13 @@ export const DirectoryItemContainer = styled.div`
       opacity: 0.9;
     }
   }
-  @media screen and (max-width: 544px) {
+
+  /* @media screen and (max-width: 550px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+  } */
+  @media screen and (max-width: 550px) {
     &:nth-child(4) {
       height: 240px;
     }

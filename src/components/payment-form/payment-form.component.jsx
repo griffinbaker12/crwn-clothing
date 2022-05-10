@@ -6,7 +6,7 @@ import {
   updateProcessing,
   updateShowStatus,
   updateSuccess,
-} from '../../store/checkout/checkout.action';
+} from '../../store/payment/payment.action';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import { BUTTON_TYPE_CLASSES } from '../button/button.component';
 import { clearCart } from '../../store/cart/cart.action';

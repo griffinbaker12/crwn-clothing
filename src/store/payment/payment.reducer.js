@@ -1,9 +1,10 @@
-import { CHECKOUT_ACTION_TYPES } from './checkout.types';
+import { CHECKOUT_ACTION_TYPES } from './payment.types';
 
 const INITIAL_STATE = {
   isProcessing: false,
   isShowingStatus: false,
   isSuccessful: false,
+  isCheckingOut: false,
 };
 
 export const checkoutReducer = (state = INITIAL_STATE, action) => {
@@ -23,6 +24,11 @@ export const checkoutReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isSuccessful: payload,
+      };
+    case CHECKOUT_ACTION_TYPES.SET_CHECKOUT_TOGGLE:
+      return {
+        ...state,
+        isCheckingOut: payload,
       };
     default:
       return state;

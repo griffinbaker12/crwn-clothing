@@ -6,7 +6,7 @@ import {
   CheckmarkWrapper,
 } from './payment-icon-styles';
 import { useSelector } from 'react-redux';
-import { selectIsSuccessful } from '../../store/checkout/checkout.selector';
+import { selectIsSuccessful } from '../../store/payment/payment.selector';
 
 const PaymentIcon = () => {
   const isSuccess = useSelector(selectIsSuccessful);
