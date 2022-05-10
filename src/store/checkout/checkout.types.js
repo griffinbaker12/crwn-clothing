@@ -1,0 +1,5 @@
+export const CHECKOUT_ACTION_TYPES = {
+  SET_PROCESSING: 'checkout/SET_PROCESSING',
+  SET_SHOW_STATUS: 'checkout/SET_SHOW_STATUS',
+  SET_SUCCESS: 'checkout/SET _SUCCESS',
+};

@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectCartTotal,
-  selectIsCartOpen,
-} from '../../store/cart/cart.selector';
+import { selectCartTotal } from '../../store/cart/cart.selector';
 import { selectCurrentUser } from '../../store/user/user.selector';
+import {
+  updateProcessing,
+  updateShowStatus,
+  updateSuccess,
+} from '../../store/checkout/checkout.action';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import { BUTTON_TYPE_CLASSES } from '../button/button.component';
-import { clearCart, toggleCart } from '../../store/cart/cart.action';
+import { clearCart } from '../../store/cart/cart.action';
+
 import {
   PaymentFormContainer,
   FormContainer,
@@ -24,13 +27,19 @@ const PaymentForm = ({ toggleForm, checkoutToggle }) => {
   const amount = useSelector(selectCartTotal);
   const currentUser = useSelector(selectCurrentUser);
   const dispatch = useDispatch();
-  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
-  const [showStatus, setShowStatus] = useState(false);
-  const [isSuccessful, setIsSuccessful] = useState(false);
 
-  const resetFormAfterSuccess = () => {
-    setShowStatus(false);
+  const resetForm = () => {
+    dispatch(updateShowStatus(false));
     elements.getElement('card').clear();
+  };
+
+  const handleError = (
+    errorMsg = 'Please add items to cart prior to checking out.'
+  ) => {
+    dispatch(updateProcessing(false));
+    dispatch(updateShowStatus(true));
+    alert(errorMsg);
+    dispatch(updateSuccess(false));
   };
 
   const handlePayment = async e => {
@@ -38,7 +47,7 @@ const PaymentForm = ({ toggleForm, checkoutToggle }) => {
 
     if (!stripe || !elements) return;
 
-    setIsProcessingPayment(true);
+    dispatch(updateProcessing(true));
 
     const response = await fetch('/.netlify/functions/create-payment-intent', {
       method: 'post',
@@ -48,7 +57,6 @@ const PaymentForm = ({ toggleForm, checkoutToggle }) => {
       body: JSON.stringify({ amount: amount * 100 }),
     }).then(res =>
       res.json().catch(e => {
-        console.log('Here is the error from the front end:', { e });
         if (e.message === 'Unexpected token Y in JSON at position 0') {
           return 'invalid cart';
         }
@@ -57,22 +65,18 @@ const PaymentForm = ({ toggleForm, checkoutToggle }) => {
     );
 
     if (response === 'error') {
-      setIsProcessingPayment(false);
-      setShowStatus(true);
-      alert('Error processing payment, please try again!');
-      setIsSuccessful(false);
-      setTimeout(() => resetFormAfterSuccess(), 500);
+      handleError('Error processing payment, please try again!');
+      setTimeout(() => resetForm(), 1000);
       return;
     }
+
+    // Not really important, but curious how I can get the x button to render before the alert message shows? How can that be done?
     if (response === 'invalid cart') {
-      setIsProcessingPayment(false);
-      setShowStatus(true);
-      alert('Please add items to cart prior to checking out.');
-      setIsSuccessful(false);
+      handleError();
       setTimeout(() => {
         toggleForm(false);
         setTimeout(() => {
-          resetFormAfterSuccess();
+          resetForm();
         }, 1000);
       }, 1000);
     }
@@ -90,22 +94,22 @@ const PaymentForm = ({ toggleForm, checkoutToggle }) => {
       },
     });
 
-    setIsProcessingPayment(false);
-    setShowStatus(true);
+    updateProcessing(false);
+    updateShowStatus(true);
 
     if (paymentResult.error) {
       alert('Error processing payment, please try again');
-      setIsSuccessful(false);
-      setTimeout(() => setShowStatus(false), 500);
+      updateSuccess(false);
+      setTimeout(() => updateShowStatus(false), 1000);
     } else {
       if (paymentResult.paymentIntent.status === 'succeeded') {
         alert('Payment success, thank you for shopping with us!');
-        setIsSuccessful(true);
+        updateSuccess(true);
         setTimeout(() => {
           toggleForm(false);
           dispatch(clearCart());
           setTimeout(() => {
-            resetFormAfterSuccess();
+            resetForm();
           }, 1000);
         }, 1000);
       }
@@ -123,12 +127,7 @@ const PaymentForm = ({ toggleForm, checkoutToggle }) => {
       <h2>Credit Card Payment</h2>
       <FormContainer>
         <PaymentCard />
-        <PaymentButton
-          isLoading={isProcessingPayment}
-          showStatus={showStatus}
-          isSuccessful={isSuccessful}
-          buttonType={BUTTON_TYPE_CLASSES.inverted}
-        >
+        <PaymentButton buttonType={BUTTON_TYPE_CLASSES.inverted}>
           Pay now
         </PaymentButton>
       </FormContainer>
