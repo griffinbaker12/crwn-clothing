@@ -70,7 +70,6 @@ const PaymentForm = ({ toggleForm, checkoutToggle }) => {
       return;
     }
 
-    // Not really important, but curious how I can get the x button to render before the alert message shows? How can that be done?
     if (response === 'invalid cart') {
       handleError();
       setTimeout(() => {
@@ -94,17 +93,17 @@ const PaymentForm = ({ toggleForm, checkoutToggle }) => {
       },
     });
 
-    updateProcessing(false);
-    updateShowStatus(true);
+    dispatch(updateProcessing(false));
+    dispatch(updateShowStatus(true));
 
     if (paymentResult.error) {
       alert('Error processing payment, please try again');
-      updateSuccess(false);
-      setTimeout(() => updateShowStatus(false), 1000);
+      dispatch(updateSuccess(false));
+      setTimeout(() => dispatch(updateShowStatus(false), 1000));
     } else {
       if (paymentResult.paymentIntent.status === 'succeeded') {
         alert('Payment success, thank you for shopping with us!');
-        updateSuccess(true);
+        dispatch(updateSuccess(true));
         setTimeout(() => {
           toggleForm(false);
           dispatch(clearCart());
@@ -127,7 +126,10 @@ const PaymentForm = ({ toggleForm, checkoutToggle }) => {
       <h2>Credit Card Payment</h2>
       <FormContainer>
         <PaymentCard />
-        <PaymentButton buttonType={BUTTON_TYPE_CLASSES.inverted}>
+        <PaymentButton
+          buttonType={BUTTON_TYPE_CLASSES.inverted}
+          checkout={true}
+        >
           Pay now
         </PaymentButton>
       </FormContainer>

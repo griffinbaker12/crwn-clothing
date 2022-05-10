@@ -6,13 +6,13 @@ import {
   CheckmarkWrapper,
 } from './payment-icon-styles';
 import { useSelector } from 'react-redux';
-import { selectIsProccessing } from '../../store/checkout/checkout.selector';
+import { selectIsSuccessful } from '../../store/checkout/checkout.selector';
 
-const PaymentIcon = ({ isSuccessful }) => {
-  const isProcessing = useSelector(selectIsProccessing);
+const PaymentIcon = () => {
+  const isSuccess = useSelector(selectIsSuccessful);
   return (
     <Fragment>
-      {isProcessing ? (
+      {isSuccess ? (
         <WrapperSuccess>
           <CheckmarkWrapper>&#10003;</CheckmarkWrapper>
         </WrapperSuccess>

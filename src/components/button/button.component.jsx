@@ -25,21 +25,15 @@ const getButton = (buttonType = BUTTON_TYPE_CLASSES.base) =>
     [BUTTON_TYPE_CLASSES.inverted]: InvertedButton,
   }[buttonType]);
 
-const Button = ({
-  children,
-  buttonType,
-  isLoading,
-  isSuccessful,
-  showStatus,
-  ...otherProps
-}) => {
+const Button = ({ children, buttonType, checkout, ...otherProps }) => {
   const CustomButton = getButton(buttonType);
   const isProcessing = useSelector(selectIsProccessing);
   const isShowingStatus = useSelector(selectIsShowingStatus);
-  console.log(isProcessing, isShowingStatus);
   return (
-    <CustomButton disabled={isLoading} {...otherProps}>
-      {isProcessing ? (
+    <CustomButton disabled={isProcessing} {...otherProps}>
+      {!checkout ? (
+        children
+      ) : isProcessing ? (
         <ButtonSpinner />
       ) : isShowingStatus ? (
         <PaymentIcon />
