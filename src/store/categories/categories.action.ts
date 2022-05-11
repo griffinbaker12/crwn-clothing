@@ -27,6 +27,7 @@ export type CategoriesAction =
 export const fetchCategorieStart = (): FetchCategoriesStart =>
   createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START);
 
+// if our action creator is our fetch categories success, and it passes calling match on the action, then we know for sure it is going to be of the FetchCategoriesSuccess action
 export const fetchCategorieSuccess = (
   categoriesArray: Categories[]
 ): FetchCategoriesSuccess =>
