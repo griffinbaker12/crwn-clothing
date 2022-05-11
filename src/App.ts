@@ -7,6 +7,7 @@ import Authentication from './routes/authentication/authentication.component';
 import Checkout from './routes/checkout/checkout.component';
 import Shop from './routes/shop/shop.component';
 import { checkUserSession } from './store/user/user.action';
+import { ChangeEventHandler } from 'react';
 
 const App = () => {
   const dispatch = useDispatch();

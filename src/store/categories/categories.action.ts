@@ -1,4 +1,4 @@
-import { CATEGORIES_ACTION_TYPES, Category } from './categories.types';
+import { CATEGORIES_ACTION_TYPES, Categories } from './categories.types';
 import {
   createAction,
   Action,
@@ -11,7 +11,7 @@ export type FetchCategoriesStart =
 
 export type FetchCategoriesSuccess = ActionWithPayload<
   CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS,
-  Category[]
+  Categories[]
 >;
 
 export type FetchCategoriesFailure = ActionWithPayload<
@@ -19,16 +19,16 @@ export type FetchCategoriesFailure = ActionWithPayload<
   Error
 >;
 
-export type CategoryAction =
+export type CategoriesAction =
   | FetchCategoriesStart
   | FetchCategoriesSuccess
   | FetchCategoriesFailure;
 
-export const fetchCategoriesStart = (): FetchCategoriesStart =>
+export const fetchCategorieStart = (): FetchCategoriesStart =>
   createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START);
 
-export const fetchCategoriesSuccess = (
-  categoriesArray: Category[]
+export const fetchCategorieSuccess = (
+  categoriesArray: Categories[]
 ): FetchCategoriesSuccess =>
   createAction(
     CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS,

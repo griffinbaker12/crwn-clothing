@@ -1,6 +1,6 @@
 import { CATEGORIES_ACTION_TYPES, Category } from './categories.types';
 
-import { CategoryAction } from './categories.action';
+import { CategoriesAction } from './categories.action';
 
 export type CategoriesState = {
   readonly categories: Category[];
@@ -16,7 +16,7 @@ const INITIAL_STATE: CategoriesState = {
 
 export const categoriesReducer = (
   state = INITIAL_STATE,
-  action = {} as CategoryAction
+  action = {} as CategoriesAction
 ) => {
   switch (action.type) {
     case CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START:
