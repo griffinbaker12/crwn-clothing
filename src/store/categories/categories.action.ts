@@ -3,6 +3,7 @@ import {
   createAction,
   Action,
   ActionWithPayload,
+  withMatcher,
 } from '../../utils/reducer/reducer.utils';
 import { create } from 'domain';
 
@@ -19,22 +20,26 @@ export type FetchCategoriesFailure = ActionWithPayload<
   Error
 >;
 
-export type CategoriesAction =
-  | FetchCategoriesStart
-  | FetchCategoriesSuccess
-  | FetchCategoriesFailure;
+// This action creator literally receives no parameters, while the one below receives one
 
-export const fetchCategorieStart = (): FetchCategoriesStart =>
-  createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START);
+export const fetchCategoriesStart = withMatcher(
+  (): FetchCategoriesStart =>
+    createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START)
+);
+
+// Type, inside of our matchable, reaches into the return type of that action creator and gets the actual type.
+// fetchCategoriesStart.type;
 
 // if our action creator is our fetch categories success, and it passes calling match on the action, then we know for sure it is going to be of the FetchCategoriesSuccess action
-export const fetchCategorieSuccess = (
-  categoriesArray: Categories[]
-): FetchCategoriesSuccess =>
-  createAction(
-    CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS,
-    categoriesArray
-  );
+export const fetchCategoriesSuccess = withMatcher(
+  (categoriesArray: Categories[]): FetchCategoriesSuccess =>
+    createAction(
+      CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS,
+      categoriesArray
+    )
+);
 
-export const fetchCategoriesFailure = (error: Error): FetchCategoriesFailure =>
-  createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILURE, error);
+export const fetchCategoriesFailure = withMatcher(
+  (error: Error): FetchCategoriesFailure =>
+    createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILURE, error)
+);

@@ -1,7 +1,12 @@
-import { CART_ACTION_TYPES } from './cart.types';
+import { CategoryItem } from '../categories/categories.types';
+import { CART_ACTION_TYPES, CartItem } from './cart.types';
+import { createAction, withMatcher } from '../../utils/reducer/reducer.utils';
 
 // Helper Functions
-const addCartItem = (cartItems, productToAdd) => {
+const addCartItem = (
+  cartItems: CartItem[],
+  productToAdd: CategoryItem
+): CartItem[] => {
   const contains = cartItems.find(item => item.id === productToAdd.id);
   if (contains) {
     return cartItems.map(cartItem =>
@@ -13,7 +18,10 @@ const addCartItem = (cartItems, productToAdd) => {
   return [...cartItems, { ...productToAdd, quantity: 1 }];
 };
 
-const removeCartItem = (cartItems, cartItemToRemove) => {
+const removeCartItem = (
+  cartItems: CartItem[],
+  cartItemToRemove: CartItem
+): CartItem[] => {
   if (cartItemToRemove.quantity === 1) {
     return cartItems.filter(cartItem => cartItem.id !== cartItemToRemove.id);
   }
@@ -24,7 +32,10 @@ const removeCartItem = (cartItems, cartItemToRemove) => {
   );
 };
 
-const clearCartItem = (cartItems, cartItemToClear) => {
+const clearCartItem = (
+  cartItems: CartItem[],
+  cartItemToClear: CartItem
+): CartItem[] => {
   return cartItems.filter(cartItem => cartItem.id !== cartItemToClear.id);
 };
 
