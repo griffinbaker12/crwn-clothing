@@ -9,10 +9,6 @@ import {
   UserData,
   AdditionalInformation,
 } from '../../utils/firebase/firebase.utils';
-import { Sign } from 'crypto';
-import { User } from 'firebase/auth';
-
-// New action types for all of these action creators...
 
 export type CheckUserSession = Action<USER_ACTION_TYPES.CHECK_USER_SESSION>;
 
@@ -69,8 +65,6 @@ export type SignOutFailure = ActionWithPayload<
   Error
 >;
 
-// Action creators with match method
-
 export const checkUserSession = withMatcher(
   (): CheckUserSession => createAction(USER_ACTION_TYPES.CHECK_USER_SESSION)
 );
@@ -95,7 +89,7 @@ export const signInSuccess = withMatcher(
 );
 
 export const signInFailure = withMatcher(
-  (error): SignInFailure =>
+  (error: Error): SignInFailure =>
     createAction(USER_ACTION_TYPES.SIGN_IN_FAILURE, error)
 );
 

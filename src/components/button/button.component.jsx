@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import {
   selectIsProccessing,
   selectIsShowingStatus,
-} from '../../store/payment/payment.selector.js';
+} from '../../store/payment/payment.selector';
 import PaymentIcon from '../payment-icon/payment-icon-component.jsx';
 import { Fragment } from 'react';
 

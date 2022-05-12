@@ -13,9 +13,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   selectCartItems,
   selectCartTotal,
-} from '../../store/cart/cart.selector.js';
+} from '../../store/cart/cart.selector';
 import PaymentForm from '../../components/payment-form/payment-form.component';
-import { toggleCart } from '../../store/cart/cart.action.js';
+import { toggleCart } from '../../store/cart/cart.action';
 
 const Checkout = () => {
   const cartItems = useSelector(selectCartItems);

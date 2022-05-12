@@ -1,7 +1,7 @@
 import {
   emailSignInStart,
   googleSignInStart,
-} from '../../store/user/user.action.js';
+} from '../../store/user/user.action';
 import { useDispatch } from 'react-redux';
 import { ButtonsContainer, SignInContainer } from './sign-in-form.styles.jsx';
 import { useState } from 'react';

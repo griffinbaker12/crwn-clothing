@@ -1,7 +1,8 @@
 import { createSelector } from 'reselect';
 import { PaymentState } from './payment.reducer';
+import { RootState } from '../store';
 
-const selectPaymentReducer = (state): PaymentState => state.payment;
+const selectPaymentReducer = (state: RootState): PaymentState => state.payment;
 
 export const selectIsProccessing = createSelector(
   [selectPaymentReducer],
