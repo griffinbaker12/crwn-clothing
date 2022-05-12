@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -16,8 +16,14 @@ import {
   Title,
 } from './category.styles';
 
+type CategoryRouteParams = {
+  category: string;
+};
+
 const Category = () => {
-  const { category } = useParams();
+  const { category } = useParams<
+    keyof CategoryRouteParams
+  >() as CategoryRouteParams;
   const categoriesMap = useSelector(selectCategoriesMap);
   const isLoading = useSelector(selectIsCategoriesLoading);
   const [products, setProducts] = useState(categoriesMap[category]);

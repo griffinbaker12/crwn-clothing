@@ -1,6 +1,10 @@
 import styled, { css } from 'styled-components';
 import Button from '../../components/button/button.component';
 
+type OverlayProps = {
+  checkoutToggle?: boolean;
+};
+
 export const CheckoutContainer = styled.div`
   width: 55%;
   min-height: 90vh;
@@ -66,7 +70,7 @@ export const CheckoutPayment = styled.div`
   padding: 10px;
 `;
 
-export const Overlay = styled.div`
+export const Overlay = styled.div<OverlayProps>`
   position: fixed;
   top: 0;
   left: 0;

@@ -6,9 +6,9 @@ import {
   CheckoutPayment,
   CheckoutButton,
   Overlay,
-} from './checkout.styles.jsx';
+} from './checkout.styles';
 import CheckoutItem from '../../components/checkout-item/checkout-item.component';
-import { Fragment, useState } from 'react';
+import { Fragment, MouseEventHandler, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectCartItems,
@@ -23,8 +23,10 @@ const Checkout = () => {
   const dispatch = useDispatch();
   const [checkoutToggle, setCheckoutToggle] = useState(false);
 
-  const handleClick = () =>
-    setCheckoutToggle(prevState => !prevState, dispatch(toggleCart(false)));
+  const handleClick = () => {
+    setCheckoutToggle(prevState => !prevState);
+    dispatch(toggleCart(false));
+  };
 
   return (
     <CheckoutContainer>

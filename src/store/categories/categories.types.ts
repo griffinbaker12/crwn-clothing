@@ -15,6 +15,7 @@ export type Categories = {
   title: string;
   imageUrl: string;
   items: CategoryItem[];
+  size: string;
 };
 
 export type CategoriesMap = {

@@ -57,26 +57,17 @@ export const setCartItems = withMatcher(
     createAction(CART_ACTION_TYPES.SET_CART_ITEMS, cartItems)
 );
 
-export const clearItem = (
-  cartItems: CartItem[],
-  item: CartItem
-): SetCartItems => {
+export const clearItem = (cartItems: CartItem[], item: CartItem) => {
   const newCartItems = clearCartItem(cartItems, item);
   return setCartItems(newCartItems);
 };
 
-export const addItem = (
-  cartItems: CartItem[],
-  item: CartItem
-): SetCartItems => {
+export const addItem = (cartItems: CartItem[], item: CategoryItem) => {
   const newCartItems = addCartItem(cartItems, item);
   return setCartItems(newCartItems);
 };
 
-export const removeItem = (
-  cartItems: CartItem[],
-  item: CartItem
-): SetCartItems => {
+export const removeItem = (cartItems: CartItem[], item: CartItem) => {
   const newCartItems = removeCartItem(cartItems, item);
   return setCartItems(newCartItems);
 };

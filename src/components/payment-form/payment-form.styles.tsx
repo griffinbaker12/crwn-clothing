@@ -1,9 +1,12 @@
-import styled from 'styled-components';
-import { css } from 'styled-components';
+import styled, { css } from 'styled-components';
 import Button from '../button/button.component';
 import { CardElement } from '@stripe/react-stripe-js';
 
-export const PaymentFormContainer = styled.div`
+type PaymentFormContainerProps = {
+  checkoutToggle?: boolean;
+};
+
+export const PaymentFormContainer = styled.div<PaymentFormContainerProps>`
   height: 300px;
   width: 450px;
   padding: 0px 15px 0px 15px;
@@ -80,10 +83,6 @@ export const PaymentCard = styled(CardElement)`
   width: 90%;
   margin-left: auto;
   margin-right: auto;
-
-  :hover {
-    /* border: 1px solid #f238e2; */
-  }
 `;
 
 export const Note = styled.div`

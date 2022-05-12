@@ -10,7 +10,7 @@ import {
   NavLinks,
   NavLink,
   CrwnLogo,
-} from './navigation.styles.jsx';
+} from './navigation.styles';
 import { selectCurrentUser } from '../../store/user/user.selector';
 import { selectIsCartOpen } from '../../store/cart/cart.selector';
 

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCartTotal } from '../../store/cart/cart.selector';
 import { selectCurrentUser } from '../../store/user/user.selector';
@@ -10,7 +10,6 @@ import {
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import { BUTTON_TYPE_CLASSES } from '../button/button.component';
 import { clearCart } from '../../store/cart/cart.action';
-
 import {
   PaymentFormContainer,
   FormContainer,
@@ -18,19 +17,27 @@ import {
   CloseForm,
   PaymentCard,
   Note,
-} from '../../components/payment-form/payment-form.styles.jsx';
-import userEvent from '@testing-library/user-event';
+} from './payment-form.styles';
+import { StripeCardElement } from '@stripe/stripe-js';
 
-const PaymentForm = ({ toggleForm, checkoutToggle }) => {
+export type PaymentFormProps = {
+  toggleForm: () => void;
+  checkoutToggle: boolean;
+};
+
+const PaymentForm = ({ toggleForm, checkoutToggle }: PaymentFormProps) => {
   const stripe = useStripe();
   const elements = useElements();
   const amount = useSelector(selectCartTotal);
   const currentUser = useSelector(selectCurrentUser);
   const dispatch = useDispatch();
 
-  const resetForm = () => {
+  const resetForm = (cardDetails?: StripeCardElement) => {
     dispatch(updateShowStatus(false));
-    elements.getElement('card').clear();
+    if (!cardDetails) {
+      return;
+    }
+    cardDetails.clear();
   };
 
   const handleError = (
@@ -42,7 +49,7 @@ const PaymentForm = ({ toggleForm, checkoutToggle }) => {
     dispatch(updateSuccess(false));
   };
 
-  const handlePayment = async e => {
+  const handlePayment = async (e: FormEvent<HTMLDivElement>) => {
     e.preventDefault();
 
     if (!stripe || !elements) return;
@@ -73,7 +80,7 @@ const PaymentForm = ({ toggleForm, checkoutToggle }) => {
     if (response === 'invalid cart') {
       handleError();
       setTimeout(() => {
-        toggleForm(false);
+        toggleForm();
         setTimeout(() => {
           resetForm();
         }, 1000);
@@ -84,9 +91,13 @@ const PaymentForm = ({ toggleForm, checkoutToggle }) => {
       paymentIntent: { client_secret },
     } = response;
 
+    const cardDetails = elements.getElement(CardElement);
+
+    if (!cardDetails) return;
+
     const paymentResult = await stripe.confirmCardPayment(client_secret, {
       payment_method: {
-        card: elements.getElement(CardElement),
+        card: cardDetails,
         billing_details: {
           name: currentUser ? currentUser.displayName : 'guest',
         },
@@ -99,13 +110,13 @@ const PaymentForm = ({ toggleForm, checkoutToggle }) => {
     if (paymentResult.error) {
       alert('Error processing payment, please try again');
       dispatch(updateSuccess(false));
-      setTimeout(() => dispatch(updateShowStatus(false), 1000));
+      setTimeout(() => dispatch(updateShowStatus(false)), 1000);
     } else {
       if (paymentResult.paymentIntent.status === 'succeeded') {
         alert('Payment success, thank you for shopping with us!');
         dispatch(updateSuccess(true));
         setTimeout(() => {
-          toggleForm(false);
+          toggleForm();
           dispatch(clearCart());
           setTimeout(() => {
             resetForm();
