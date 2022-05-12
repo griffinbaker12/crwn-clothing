@@ -1,8 +1,11 @@
 import { CategoryItem } from '../categories/categories.types';
 import { CART_ACTION_TYPES, CartItem } from './cart.types';
-import { createAction, withMatcher } from '../../utils/reducer/reducer.utils';
+import {
+  ActionWithPayload,
+  createAction,
+  withMatcher,
+} from '../../utils/reducer/reducer.utils';
 
-// Helper Functions
 const addCartItem = (
   cartItems: CartItem[],
   productToAdd: CategoryItem
@@ -39,39 +42,47 @@ const clearCartItem = (
   return cartItems.filter(cartItem => cartItem.id !== cartItemToClear.id);
 };
 
-// Action creators
-export const clearItem = (cartItems, item) => {
-  const newCartItems = clearCartItem(cartItems, item);
-  return {
-    type: CART_ACTION_TYPES.SET_CART_ITEMS,
-    payload: newCartItems,
-  };
-};
+export type ToggleCart = ActionWithPayload<
+  CART_ACTION_TYPES.TOGGLE_CART,
+  boolean
+>;
 
-export const addItem = (cartItems, item) => {
+export type SetCartItems = ActionWithPayload<
+  CART_ACTION_TYPES.SET_CART_ITEMS,
+  CartItem[]
+>;
+
+export const setCartItems = withMatcher(
+  (cartItems: CartItem[]): SetCartItems =>
+    createAction(CART_ACTION_TYPES.SET_CART_ITEMS, cartItems)
+);
+
+export const clearItem = withMatcher(
+  (cartItems: CartItem[], item: CartItem): SetCartItems => {
+    const newCartItems = clearCartItem(cartItems, item);
+    return setCartItems(newCartItems);
+  }
+);
+
+export const addItem = (
+  cartItems: CartItem[],
+  item: CartItem
+): SetCartItems => {
   const newCartItems = addCartItem(cartItems, item);
-  return {
-    type: CART_ACTION_TYPES.SET_CART_ITEMS,
-    payload: newCartItems,
-  };
+  return setCartItems(newCartItems);
 };
 
-export const removeItem = (cartItems, item) => {
+export const removeItem = (
+  cartItems: CartItem[],
+  item: CartItem
+): SetCartItems => {
   const newCartItems = removeCartItem(cartItems, item);
-  return {
-    type: CART_ACTION_TYPES.SET_CART_ITEMS,
-    payload: newCartItems,
-  };
+  return setCartItems(newCartItems);
 };
 
-export const clearCart = () => {
-  return {
-    type: CART_ACTION_TYPES.SET_CART_ITEMS,
-    payload: [],
-  };
+export const clearCart = (): SetCartItems => {
+  return setCartItems([]);
 };
 
-export const toggleCart = cartStatus => ({
-  type: CART_ACTION_TYPES.TOGGLE_CART,
-  payload: cartStatus,
-});
+export const toggleCart = (boolean: boolean): ToggleCart =>
+  createAction(CART_ACTION_TYPES.TOGGLE_CART, boolean);
