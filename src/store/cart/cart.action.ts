@@ -57,12 +57,13 @@ export const setCartItems = withMatcher(
     createAction(CART_ACTION_TYPES.SET_CART_ITEMS, cartItems)
 );
 
-export const clearItem = withMatcher(
-  (cartItems: CartItem[], item: CartItem): SetCartItems => {
-    const newCartItems = clearCartItem(cartItems, item);
-    return setCartItems(newCartItems);
-  }
-);
+export const clearItem = (
+  cartItems: CartItem[],
+  item: CartItem
+): SetCartItems => {
+  const newCartItems = clearCartItem(cartItems, item);
+  return setCartItems(newCartItems);
+};
 
 export const addItem = (
   cartItems: CartItem[],
@@ -84,5 +85,7 @@ export const clearCart = (): SetCartItems => {
   return setCartItems([]);
 };
 
-export const toggleCart = (boolean: boolean): ToggleCart =>
-  createAction(CART_ACTION_TYPES.TOGGLE_CART, boolean);
+export const toggleCart = withMatcher(
+  (boolean: boolean): ToggleCart =>
+    createAction(CART_ACTION_TYPES.TOGGLE_CART, boolean)
+);

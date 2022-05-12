@@ -21,7 +21,7 @@ const INITIAL_STATE: CategoriesState = {
 
 export const categoriesReducer = (
   state = INITIAL_STATE,
-  action = {} as AnyAction
+  action: AnyAction
 ): CategoriesState => {
   if (fetchCategoriesStart.match(action)) {
     return { ...state, isLoading: true };
@@ -33,7 +33,7 @@ export const categoriesReducer = (
 
   if (fetchCategoriesFailure.match(action)) {
     return { ...state, error: action.payload, isLoading: true };
-  } else {
-    return state;
   }
+
+  return state;
 };
