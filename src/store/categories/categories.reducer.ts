@@ -28,11 +28,11 @@ export const categoriesReducer = (
   }
 
   if (fetchCategoriesSuccess.match(action)) {
-    return { ...state, categories: action.payload, isLoading: true };
+    return { ...state, categories: action.payload, isLoading: false };
   }
 
   if (fetchCategoriesFailure.match(action)) {
-    return { ...state, error: action.payload, isLoading: true };
+    return { ...state, error: action.payload, isLoading: false };
   }
 
   return state;
