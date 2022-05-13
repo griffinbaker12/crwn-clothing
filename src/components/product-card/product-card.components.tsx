@@ -22,7 +22,9 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
       <img src={imageUrl} alt={`${name}`} />
       <Footer>
         <Name>{name}</Name>
-        <span>${price}</span>
+        <span style={{ display: 'inline-block', marginLeft: '2px' }}>
+          ${price}
+        </span>
       </Footer>
       <Button
         buttonType={BUTTON_TYPE_CLASSES.inverted}

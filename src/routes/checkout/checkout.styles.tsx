@@ -48,6 +48,7 @@ export const Total = styled.span`
 export const CheckoutButton = styled(Button)`
   background-color: rgb(244, 85, 0);
   border-radius: 5px;
+  border: none;
 
   &:hover {
     background-color: #f76e40;

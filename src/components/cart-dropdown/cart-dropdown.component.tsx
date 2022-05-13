@@ -19,7 +19,10 @@ const CartDropdown = () => {
     <CartDropDownContainer>
       <CartItems>
         {cartItems.length ? (
-          cartItems.map(item => <CartItem key={item.id} item={item} />)
+          cartItems.map(item => {
+            console.log(item);
+            return <CartItem key={item.id} item={item} />;
+          })
         ) : (
           <EmptyMessage>Your cart is empty</EmptyMessage>
         )}

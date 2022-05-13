@@ -20,7 +20,7 @@ export const BaseButton = styled.button`
   text-transform: uppercase;
   font-family: 'Encode Sans Condensed';
   font-weight: bolder;
-  border: none;
+  border: 1px solid #afafaf;
   cursor: pointer;
   display: flex;
   justify-content: center;

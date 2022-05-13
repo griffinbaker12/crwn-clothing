@@ -7,6 +7,7 @@ export const ProductCartContainer = styled.div`
   height: 350px;
   align-items: center;
   position: relative;
+  margin-bottom: 5px;
   img {
     width: 100%;
     height: 90%;
@@ -19,6 +20,13 @@ export const ProductCartContainer = styled.div`
     position: absolute;
     top: 255px;
     display: none;
+    @media screen and (max-width: 500px) {
+      display: block;
+      opacity: 0.9;
+      min-width: unset;
+      padding: 0 10px;
+      font-size: 14px;
+    }
   }
   &:hover {
     img {
@@ -32,6 +40,14 @@ export const ProductCartContainer = styled.div`
 
   @media screen and (max-width: 900px) {
     width: 40vw;
+    &:hover {
+      img {
+        opacity: unset;
+      }
+      button {
+        opacity: unset;
+      }
+    }
   }
 `;
 

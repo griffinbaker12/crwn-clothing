@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import { persistor, store } from './store/store';
 import { Elements } from '@stripe/react-stripe-js';
 import App from './App';
-import './index.scss';
 import { stripePromise } from './utils/stripe/stripe.utils';
 import reportWebVitals from './reportWebVitals';
 

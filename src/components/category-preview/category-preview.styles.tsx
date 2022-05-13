@@ -6,7 +6,7 @@ export const CategoryPreviewContainer = styled.div`
   flex-direction: column;
   margin-bottom: 10px;
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 800px) {
     align-items: center;
   }
 `;
