@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -15,7 +15,7 @@ import {
   ProductCardContainer,
   Title,
 } from './category.styles';
-import { ExportedThemeContext } from '../navigation/navigation.component';
+import { selectTheme } from '../../store/theme/theme.selector';
 
 type CategoryRouteParams = {
   category: string;
@@ -28,8 +28,7 @@ const Category = () => {
   const categoriesMap = useSelector(selectCategoriesMap);
   const isLoading = useSelector(selectIsCategoriesLoading);
   const [products, setProducts] = useState(categoriesMap[category]);
-
-  const { theme } = useContext(ExportedThemeContext);
+  const theme = useSelector(selectTheme);
 
   useEffect(() => {
     setProducts(categoriesMap[category]);

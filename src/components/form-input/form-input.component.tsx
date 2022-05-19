@@ -1,5 +1,6 @@
-import { InputHTMLAttributes, FC, useContext } from 'react';
-import { ExportedThemeContext } from '../../routes/navigation/navigation.component';
+import { InputHTMLAttributes, FC } from 'react';
+import { useSelector } from 'react-redux';
+import { selectTheme } from '../../store/theme/theme.selector';
 import { FormInputLabel, Input, Group } from './form-input.styles';
 
 type FormInputProps = {
@@ -7,7 +8,7 @@ type FormInputProps = {
 } & InputHTMLAttributes<HTMLInputElement>;
 
 const FormInput: FC<FormInputProps> = ({ label, ...otherProps }) => {
-  const { theme } = useContext(ExportedThemeContext);
+  const theme = useSelector(selectTheme);
 
   return (
     <Group>

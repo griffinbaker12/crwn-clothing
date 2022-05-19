@@ -1,25 +1,31 @@
 import './light-dark-toggle.styles.scss';
-import { useContext, useRef } from 'react';
-import { ExportedThemeContext } from '../../routes/navigation/navigation.component';
+import { useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectFocused, selectTheme } from '../../store/theme/theme.selector';
+import { setFocused, themeToggle } from '../../store/theme/theme.action';
 
 const LightDarkToggle = () => {
   const button = useRef();
-  const { theme, toggleTheme, focused, setFocused } =
-    useContext(ExportedThemeContext);
-
-  console.log(theme);
+  const theme = useSelector(selectTheme);
+  const focused = useSelector(selectFocused);
+  const dispatch = useDispatch();
 
   window.addEventListener('click', e => {
     if (button.current && button.current === e.target.closest('.react-toggle'))
-      setFocused(true);
-    else setFocused(false);
+      dispatch(setFocused(true));
+    else dispatch(setFocused(false));
   });
+
+  const handleClick = () => {
+    if (theme === 'dark') dispatch(themeToggle('light'));
+    else dispatch(themeToggle('dark'));
+  };
 
   return (
     <div className="container">
       <div
         ref={button}
-        onClick={toggleTheme}
+        onClick={handleClick}
         className={`react-toggle ${
           theme === 'dark' ? 'react-toggle--checked' : ''
         } ${focused ? 'react-toggle--focus' : ''}`}

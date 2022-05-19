@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import {
   CategoryPreviewContainer,
   Title,
@@ -6,7 +6,8 @@ import {
 } from './category-preview.styles';
 import ProductCard from '../product-card/product-card.components';
 import { CategoryItem } from '../../store/categories/categories.types';
-import { ExportedThemeContext } from '../../routes/navigation/navigation.component';
+import { useSelector } from 'react-redux';
+import { selectTheme } from '../../store/theme/theme.selector';
 
 type CategoryPreviewProps = {
   title: string;
@@ -14,7 +15,7 @@ type CategoryPreviewProps = {
 };
 
 const CategoryPreview: FC<CategoryPreviewProps> = ({ title, products }) => {
-  const { theme } = useContext(ExportedThemeContext);
+  const theme = useSelector(selectTheme);
 
   return (
     <CategoryPreviewContainer>

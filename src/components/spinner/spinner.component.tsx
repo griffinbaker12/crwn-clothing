@@ -1,9 +1,9 @@
-import { useContext } from 'react';
-import { ExportedThemeContext } from '../../routes/navigation/navigation.component';
+import { useSelector } from 'react-redux';
+import { selectTheme } from '../../store/theme/theme.selector';
 import { SpinnerContainer, SpinnerOverlay } from './spinner.styles';
 
 const Spinner = () => {
-  const { theme } = useContext(ExportedThemeContext);
+  const theme = useSelector(selectTheme);
   return (
     <SpinnerOverlay>
       <SpinnerContainer theme={theme} />
