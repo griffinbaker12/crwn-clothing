@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+import { ExportedThemeContext } from '../../routes/navigation/navigation.component';
 import { ShoppingIcon, CartIconContainer, ItemCount } from './cart-icon.styles';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -10,13 +12,15 @@ const CartIcon = () => {
   const isCartOpen = useSelector(selectIsCartOpen);
   const cartQuantity = useSelector(selectCartQuantity);
 
+  const { theme } = useContext(ExportedThemeContext);
+
   const dispatch = useDispatch();
 
   const toggleIsCartOpen = () => dispatch(toggleCart(!isCartOpen));
 
   return (
-    <CartIconContainer onClick={toggleIsCartOpen}>
-      <ShoppingIcon />
+    <CartIconContainer theme={theme} onClick={toggleIsCartOpen}>
+      <ShoppingIcon theme={theme} />
       <ItemCount>{cartQuantity}</ItemCount>
     </CartIconContainer>
   );

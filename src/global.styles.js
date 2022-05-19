@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, css } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
 body {
@@ -11,6 +11,22 @@ body {
   @media screen and (max-width: 800px) {
     padding: 10px;
   }
+
+  ${props =>
+    props.theme === 'dark' &&
+    css`
+      background-color: #282c35;
+
+      svg g {
+        fill: white !important;
+        stroke: white;
+      }
+
+      svg g path {
+        fill: white !important;
+        stroke: white;
+      }
+    `}
 }
 
 code {

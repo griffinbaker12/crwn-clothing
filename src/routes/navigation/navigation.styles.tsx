@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { ReactComponent as CrwnSvg } from '../../assets/crown.svg';
 import { Link } from 'react-router-dom';
 
@@ -38,6 +38,7 @@ export const NavLinks = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+
   @media screen and (max-width: 800px) {
     width: 80%;
   }
@@ -46,4 +47,9 @@ export const NavLinks = styled.div`
 export const NavLink = styled(Link)`
   padding: 10px 15px;
   cursor: pointer;
+  ${props =>
+    props.theme === 'dark' &&
+    css`
+      color: white;
+    `}
 `;
