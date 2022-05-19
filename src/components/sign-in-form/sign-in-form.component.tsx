@@ -4,9 +4,10 @@ import {
 } from '../../store/user/user.action';
 import { useDispatch } from 'react-redux';
 import { ButtonsContainer, SignInContainer } from './sign-in-form.styles';
-import { useState, FormEvent, ChangeEvent } from 'react';
+import { useState, FormEvent, ChangeEvent, useContext } from 'react';
 import FormInput from '../form-input/form-input.component';
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
+import { ExportedThemeContext } from '../../routes/navigation/navigation.component';
 
 const defaultFormFields = {
   email: '',
@@ -16,6 +17,8 @@ const defaultFormFields = {
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const dispatch = useDispatch();
+
+  const { theme } = useContext(ExportedThemeContext);
 
   const { email, password } = formFields;
 
@@ -41,7 +44,7 @@ const SignInForm = () => {
   };
 
   return (
-    <SignInContainer>
+    <SignInContainer theme={theme}>
       <h2>Already have an account?</h2>
       <span>Sign in with your email and password</span>
       <form onSubmit={handleSubmit}>

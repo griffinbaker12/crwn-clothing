@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import {
   CategoryPreviewContainer,
   Title,
@@ -6,6 +6,7 @@ import {
 } from './category-preview.styles';
 import ProductCard from '../product-card/product-card.components';
 import { CategoryItem } from '../../store/categories/categories.types';
+import { ExportedThemeContext } from '../../routes/navigation/navigation.component';
 
 type CategoryPreviewProps = {
   title: string;
@@ -13,10 +14,14 @@ type CategoryPreviewProps = {
 };
 
 const CategoryPreview: FC<CategoryPreviewProps> = ({ title, products }) => {
+  const { theme } = useContext(ExportedThemeContext);
+
   return (
     <CategoryPreviewContainer>
       <h2>
-        <Title to={title}>{title.toUpperCase()}</Title>
+        <Title theme={theme} to={title}>
+          {title.toUpperCase()}
+        </Title>
       </h2>
       <Preview>
         {products

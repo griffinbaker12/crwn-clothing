@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const ButtonsContainer = styled.div`
   display: flex;
@@ -12,6 +12,15 @@ export const SignInContainer = styled.div`
 
   h2 {
     margin: 10px 0;
+  }
+
+  h2,
+  span {
+    ${props =>
+      props.theme === 'dark' &&
+      css`
+        color: white;
+      `}
   }
 
   @media screen and (max-width: 1000px) {

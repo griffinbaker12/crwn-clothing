@@ -1,16 +1,18 @@
 import styled, { css } from 'styled-components';
 
+const darkModeColor = 'white';
 const subColor = 'grey';
 const mainColor = 'black';
 
 const shrinkLabelStyles = css`
-  top: -14px;
+  top: -18px;
   font-size: 12px;
   color: ${mainColor};
 `;
 
 type FormInputLabelProps = {
   shrink?: boolean;
+  theme: string;
 };
 
 export const FormInputLabel = styled.label<FormInputLabelProps>`
@@ -22,8 +24,6 @@ export const FormInputLabel = styled.label<FormInputLabelProps>`
   left: 5px;
   top: 10px;
   transition: 300ms ease all;
-
-  ${({ shrink }) => shrink && shrinkLabelStyles}
 `;
 export const Input = styled.input`
   background: none;
@@ -44,6 +44,11 @@ export const Input = styled.input`
 
   &:focus ~ ${FormInputLabel} {
     ${shrinkLabelStyles};
+    ${props =>
+      props.theme === 'dark' &&
+      css`
+        color: white;
+      `}
   }
 `;
 

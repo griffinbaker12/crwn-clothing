@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const SpinnerOverlay = styled.div`
   height: 60vh;
@@ -27,4 +27,10 @@ export const SpinnerContainer = styled.div`
       -webkit-transform: rotate(360deg);
     }
   }
+
+  ${({ theme }) =>
+    theme === 'dark' &&
+    css`
+      border-top-color: white;
+    `}
 `;

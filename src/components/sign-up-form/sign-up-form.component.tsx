@@ -1,10 +1,11 @@
 import { SignUpContainer } from './sign-up-form.styles';
 import { Auth, AuthError, AuthErrorCodes } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
-import { useState, FormEvent, ChangeEvent } from 'react';
+import { useContext, useState, FormEvent, ChangeEvent } from 'react';
 import { signUpStart } from '../../store/user/user.action';
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
+import { ExportedThemeContext } from '../../routes/navigation/navigation.component';
 
 const defaultFormFields = {
   displayName: '',
@@ -16,6 +17,8 @@ const defaultFormFields = {
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const dispatch = useDispatch();
+
+  const { theme } = useContext(ExportedThemeContext);
 
   const { displayName, email, password, confirmPassword } = formFields;
 
@@ -47,7 +50,7 @@ const SignUpForm = () => {
   };
 
   return (
-    <SignUpContainer>
+    <SignUpContainer theme={theme}>
       <h2>Don't have an account?</h2>
       <span>Sign up with your email and password</span>
       <form onSubmit={handleSubmit}>

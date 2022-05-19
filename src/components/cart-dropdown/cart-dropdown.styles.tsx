@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import {
   BaseButton,
@@ -18,6 +18,13 @@ export const CartDropDownContainer = styled.div`
   top: 90px;
   right: 40px;
   z-index: 5;
+
+  ${props =>
+    props.theme === 'dark' &&
+    css`
+      background-color: #363c48;
+      color: white;
+    `}
 
   ${BaseButton},
   ${GoogleSignInButton},

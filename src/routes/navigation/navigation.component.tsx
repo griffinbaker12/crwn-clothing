@@ -1,4 +1,4 @@
-import React, { Fragment, createContext, useState } from 'react';
+import React, { Fragment, createContext, useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { signOutStart } from '../../store/user/user.action';
@@ -35,7 +35,7 @@ const Navigation = () => {
   const isCartOpen = useSelector(selectIsCartOpen);
   const dispatch = useDispatch();
 
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState('');
   const [focused, setFocused] = useState(false);
   const toggleTheme = () =>
     setTheme(prevState => (prevState === 'dark' ? 'light' : 'dark'));

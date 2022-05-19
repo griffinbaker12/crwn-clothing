@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const ProductCartContainer = styled.div`
   width: 22vw;
@@ -37,6 +37,12 @@ export const ProductCartContainer = styled.div`
       display: flex;
     }
   }
+
+  ${props =>
+    props.theme === 'dark' &&
+    css`
+      color: white;
+    `}
 
   @media screen and (max-width: 900px) {
     width: 40vw;

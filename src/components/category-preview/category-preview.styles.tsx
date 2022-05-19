@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const CategoryPreviewContainer = styled.div`
@@ -15,6 +15,11 @@ export const Title = styled(Link)`
   font-size: 28px;
   margin-bottom: 25px;
   cursor: pointer;
+  ${props =>
+    props.theme === 'dark' &&
+    css`
+      color: white;
+    `}
 `;
 
 export const Preview = styled.div`

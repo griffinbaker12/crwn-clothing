@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -15,6 +15,7 @@ import {
   ProductCardContainer,
   Title,
 } from './category.styles';
+import { ExportedThemeContext } from '../navigation/navigation.component';
 
 type CategoryRouteParams = {
   category: string;
@@ -28,13 +29,15 @@ const Category = () => {
   const isLoading = useSelector(selectIsCategoriesLoading);
   const [products, setProducts] = useState(categoriesMap[category]);
 
+  const { theme } = useContext(ExportedThemeContext);
+
   useEffect(() => {
     setProducts(categoriesMap[category]);
   }, [category, categoriesMap]);
 
   return (
     <CategoryContainer>
-      <Title>{category.toUpperCase()}</Title>
+      <Title theme={theme}>{category.toUpperCase()}</Title>
       {isLoading ? (
         <Spinner />
       ) : (

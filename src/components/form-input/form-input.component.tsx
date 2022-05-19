@@ -1,4 +1,5 @@
-import { InputHTMLAttributes, FC } from 'react';
+import { InputHTMLAttributes, FC, useContext } from 'react';
+import { ExportedThemeContext } from '../../routes/navigation/navigation.component';
 import { FormInputLabel, Input, Group } from './form-input.styles';
 
 type FormInputProps = {
@@ -6,9 +7,11 @@ type FormInputProps = {
 } & InputHTMLAttributes<HTMLInputElement>;
 
 const FormInput: FC<FormInputProps> = ({ label, ...otherProps }) => {
+  const { theme } = useContext(ExportedThemeContext);
+
   return (
     <Group>
-      <Input {...otherProps} />
+      <Input theme={theme} {...otherProps} />
       {label && (
         <FormInputLabel
           shrink={Boolean(

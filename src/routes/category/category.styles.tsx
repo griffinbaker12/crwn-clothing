@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const ProductCardContainer = styled.div`
   display: grid;
@@ -16,6 +16,12 @@ export const Title = styled.h2`
   margin-bottom: 25px;
   margin-top: 16px;
   text-align: center;
+
+  ${props =>
+    props.theme === 'dark' &&
+    css`
+      color: white;
+    `}
 `;
 
 export const CategoryContainer = styled.div`
