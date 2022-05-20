@@ -3,6 +3,8 @@ const { async } = require('@firebase/util');
 // Essentially attaches secret variables in the .env file into our process environment
 require('dotenv').config();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+console.log(process.env.STRIPE_SECRET_KEY);
+console.log('hey');
 
 exports.handler = async event => {
   try {

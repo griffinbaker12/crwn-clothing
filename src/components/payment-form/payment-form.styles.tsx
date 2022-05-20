@@ -108,8 +108,7 @@ export const PaymentCard = styled(CardElement)`
   ${({ theme }) =>
     theme === 'dark' &&
     css`
-      background-color: black;
-      color: white;
+      color: white !important;
       border: 1px solid #adf37c;
     `}
 `;
@@ -118,4 +117,10 @@ export const Note = styled.div`
   color: red;
   text-align: center;
   margin-top: 14px;
+
+  ${({ theme }) =>
+    theme === 'dark' &&
+    css`
+      color: white;
+    `}
 `;

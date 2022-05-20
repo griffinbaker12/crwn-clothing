@@ -147,7 +147,7 @@ const PaymentForm = ({ toggleForm, checkoutToggle }: PaymentFormProps) => {
           Pay now
         </PaymentButton>
       </FormContainer>
-      <Note>
+      <Note theme={theme}>
         *Please use the following test card for payments*
         <br />
         4242 4242 4242 4242 --- Exp: 04/24 -- CVC: 424 -- Zip: 00000
