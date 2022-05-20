@@ -40,6 +40,8 @@ export const PaymentFormContainer = styled.div<PaymentFormContainerProps>`
     theme === 'dark' &&
     css`
       background-color: #363c48;
+      border: 1px solid darkgrey;
+      color: white;
     `}
 
   h2 {
@@ -60,6 +62,13 @@ export const FormContainer = styled.form`
   margin-top: 80px;
   gap: 14px;
   border-radius: 5px;
+
+  ${({ theme }) =>
+    theme === 'dark' &&
+    css`
+      background-color: #555f74;
+      border: 1px solid darkgrey;
+    `}
 `;
 
 export const PaymentButton = styled(Button)`
@@ -77,6 +86,12 @@ export const CloseForm = styled.button`
   background: none;
   color: #555;
   font-size: 24px;
+
+  ${({ theme }) =>
+    theme === 'dark' &&
+    css`
+      color: white;
+    `}
 `;
 
 export const PaymentCard = styled(CardElement)`
@@ -89,6 +104,14 @@ export const PaymentCard = styled(CardElement)`
   width: 90%;
   margin-left: auto;
   margin-right: auto;
+
+  ${({ theme }) =>
+    theme === 'dark' &&
+    css`
+      background-color: black;
+      color: white;
+      border: 1px solid #adf37c;
+    `}
 `;
 
 export const Note = styled.div`

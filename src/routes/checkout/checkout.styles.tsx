@@ -13,15 +13,15 @@ export const CheckoutContainer = styled.div`
   align-items: center;
   margin: 20px auto 40px auto;
 
+  @media screen and (max-width: 850px) {
+    width: 90%;
+  }
+
   ${({ theme }) =>
     theme === 'dark' &&
     css`
       color: white;
     `}
-
-  @media screen and (max-width: 850px) {
-    width: 90%;
-  }
 `;
 
 export const CheckoutHeader = styled.div`

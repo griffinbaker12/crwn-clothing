@@ -134,12 +134,12 @@ const PaymentForm = ({ toggleForm, checkoutToggle }: PaymentFormProps) => {
       onSubmit={handlePayment}
       theme={theme}
     >
-      <CloseForm type="button" onClick={toggleForm}>
+      <CloseForm type="button" onClick={toggleForm} theme={theme}>
         &times;
       </CloseForm>
       <h2>Credit Card Payment</h2>
-      <FormContainer>
-        <PaymentCard />
+      <FormContainer theme={theme}>
+        <PaymentCard theme={theme} />
         <PaymentButton
           buttonType={BUTTON_TYPE_CLASSES.inverted}
           checkout={true}
