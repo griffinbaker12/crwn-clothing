@@ -19,6 +19,7 @@ import {
   Note,
 } from './payment-form.styles';
 import { StripeCardElement } from '@stripe/stripe-js';
+import { selectTheme } from '../../store/theme/theme.selector';
 
 export type PaymentFormProps = {
   toggleForm: () => void;
@@ -30,6 +31,7 @@ const PaymentForm = ({ toggleForm, checkoutToggle }: PaymentFormProps) => {
   const elements = useElements();
   const amount = useSelector(selectCartTotal);
   const currentUser = useSelector(selectCurrentUser);
+  const theme = useSelector(selectTheme);
   const dispatch = useDispatch();
 
   const resetForm = (cardDetails?: StripeCardElement) => {
@@ -130,6 +132,7 @@ const PaymentForm = ({ toggleForm, checkoutToggle }: PaymentFormProps) => {
     <PaymentFormContainer
       checkoutToggle={checkoutToggle}
       onSubmit={handlePayment}
+      theme={theme}
     >
       <CloseForm type="button" onClick={toggleForm}>
         &times;

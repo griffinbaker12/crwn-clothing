@@ -36,6 +36,12 @@ export const PaymentFormContainer = styled.div<PaymentFormContainerProps>`
       opacity: 0;
     `}
 
+    ${({ theme }) =>
+    theme === 'dark' &&
+    css`
+      background-color: #363c48;
+    `}
+
   h2 {
     position: absolute;
     top: 8%;

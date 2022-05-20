@@ -16,10 +16,12 @@ import {
 } from '../../store/cart/cart.selector';
 import PaymentForm from '../../components/payment-form/payment-form.component';
 import { toggleCart } from '../../store/cart/cart.action';
+import { selectTheme } from '../../store/theme/theme.selector';
 
 const Checkout = () => {
   const cartItems = useSelector(selectCartItems);
   const cartTotal = useSelector(selectCartTotal);
+  const theme = useSelector(selectTheme);
   const dispatch = useDispatch();
   const [checkoutToggle, setCheckoutToggle] = useState(false);
 
@@ -29,7 +31,7 @@ const Checkout = () => {
   };
 
   return (
-    <CheckoutContainer>
+    <CheckoutContainer theme={theme}>
       <CheckoutHeader>
         <HeaderBlock>
           <span>Product</span>
@@ -50,7 +52,7 @@ const Checkout = () => {
       {cartItems.map(item => (
         <CheckoutItem key={item.id} item={item} />
       ))}
-      <CheckoutPayment>
+      <CheckoutPayment theme={theme}>
         <Total>Total: ${cartTotal}</Total>
         <CheckoutButton onClick={handleClick}>Checkout</CheckoutButton>
       </CheckoutPayment>

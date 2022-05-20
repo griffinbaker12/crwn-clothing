@@ -1,0 +1,114 @@
+import styled, { css } from 'styled-components';
+
+const ReactToggleCheckedStyles = css`
+  transform: translateX(26px);
+`;
+
+const ReactToggleFocusStyles = css`
+  box-shadow: 0 0 2px 3px #ffa7c4;
+`;
+
+type ToggleProps = {
+  theme: string;
+  focused: boolean;
+};
+
+export const ThemeToggleContainer = styled.div`
+  position: relative;
+`;
+
+export const ReactToggleThumb = styled.div`
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: #fafafa;
+  box-sizing: border-box;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  transform: translateX(0);
+`;
+
+export const ReactToggle = styled.div<ToggleProps>`
+  position: absolute;
+  top: 2px;
+  right: 12px;
+  touch-action: pan-x;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
+
+  ${ReactToggleThumb} {
+    ${({ theme }) => theme === 'dark' && ReactToggleCheckedStyles}
+    ${({ focused }) => focused && ReactToggleFocusStyles}
+  }
+`;
+
+export const ReactToggleTrack = styled.div`
+  width: 50px;
+  height: 24px;
+  padding: 0;
+  border-radius: 30px;
+  background-color: #0f1114;
+  transition: all 0.2s ease;
+`;
+
+export const ReactToggleTrackCheck = styled.div`
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  left: 5px;
+  top: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  line-height: 0;
+  opacity: 1;
+  transition: opacity 0.25s ease;
+
+  img {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    margin-bottom: 1.75rem;
+  }
+`;
+
+export const ReactToggleTrackX = styled.div`
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  right: 5px;
+  top: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  line-height: 0;
+
+  img {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    margin-bottom: 1.75rem;
+  }
+`;

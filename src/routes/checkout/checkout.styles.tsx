@@ -12,7 +12,12 @@ export const CheckoutContainer = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 20px auto 40px auto;
-  /* position: relative; */
+
+  ${({ theme }) =>
+    theme === 'dark' &&
+    css`
+      color: white;
+    `}
 
   @media screen and (max-width: 850px) {
     width: 90%;
@@ -58,7 +63,6 @@ export const CheckoutButton = styled(Button)`
 `;
 
 export const CheckoutPayment = styled.div`
-  /* margin-left: auto; */
   width: 250px;
   margin-top: 24px;
   border-radius: 5px;
@@ -69,6 +73,13 @@ export const CheckoutPayment = styled.div`
   background-color: #eee;
   align-items: center;
   padding: 10px;
+
+  ${({ theme }) =>
+    theme === 'dark' &&
+    css`
+      border: 1px solid darkgrey;
+      background-color: #363c48;
+    `}
 `;
 
 export const Overlay = styled.div<OverlayProps>`
