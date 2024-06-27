@@ -1,4 +1,4 @@
-View here: https://regal-moxie-2bcc53.netlify.app/.
+**Hosted here:** https://regal-moxie-2bcc53.netlify.app/.
 
 # Technologies Used
 - React
