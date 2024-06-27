@@ -2,6 +2,7 @@
 
 # Technologies Used
 - React
+- TypeScript & JavaScript
 - Firebase
 - Stripe (for checkout)
 
